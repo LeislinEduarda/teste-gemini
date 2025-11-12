@@ -2,134 +2,172 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Upsell — Estúdio Infinito • Oferta exclusiva (R$388 → R$188)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Upsell — Estúdio Infinito • R$388 → R$188 (Apenas nesta página)</title>
   <meta name="theme-color" content="#1D4D3A" />
   <meta name="description" content="Não atualize a página. Oferta exclusiva enquanto esta aba estiver aberta: Estúdio Infinito de R$388 por R$188. Ative sua Equipe Não-Humana e publique seu primeiro post em 58 minutos." />
 
   <style>
     :root{
-      --bg:#fff; --text:#141414; --muted:#5e5e5e; --border:#e9e9e9; --surface:#fafafa;
-      --green:#1D4D3A; --wine:#7C1E28; --cta:#FF3F4A; --cta-hover:#E83B45;
-      --radius:14px; --shadow:0 10px 30px rgba(0,0,0,.08);
+      --bg:#fff; --text:#121212; --muted:#5f5f5f; --border:#e9e9e9; --surface:#fafafa;
+      --green:#1D4D3A; --wine:#7C1E28; --cta:#FF3F4A; --cta-2:#38571A;
+      --radius:14px; --shadow:0 12px 34px rgba(0,0,0,.08);
     }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;}
-    .page{max-width:980px;margin:0 auto;padding:18px 16px 72px;}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;font-size:16px;line-height:1.55}
+    img{max-width:100%;height:auto;display:block}
+    .page{max-width:980px;margin:0 auto;padding:16px clamp(14px,4vw,18px) 80px}
     h1,h2{letter-spacing:-.02em;margin:0 0 10px}
-    h1{font-size:clamp(24px,4.8vw,36px)}
-    h2{font-size:clamp(18px,3.6vw,24px); color:var(--green)}
+    h1{font-size:clamp(24px,5.2vw,38px);line-height:1.12}
+    h2{font-size:clamp(18px,3.8vw,24px);color:var(--green)}
     p{margin:8px 0}
     .muted{color:var(--muted)}
     .tiny{font-size:12px;color:var(--muted)}
     .center{text-align:center}
 
-    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    .hero{display:grid;gap:12px;margin-top:4px}
-    .warn{display:flex;align-items:flex-start;gap:10px;background:#FFF7F8;border:1px solid #FFD2D6;color:#8c000d;padding:12px;border-radius:12px}
+    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+    .stack{display:grid;gap:12px}
+    .hero{display:grid;gap:12px;margin-top:2px}
+
+    /* Destaques */
+    .banner-strong{
+      background:linear-gradient(180deg,#FFF2F3,#fff);
+      border:2px solid #FFD2D6; color:#7c0b17; border-radius:14px; padding:12px 14px; font-weight:800;
+      text-align:center; font-size:clamp(18px,4.8vw,22px);
+    }
+    .banner-secondary{
+      background:#F7FBF8; border:1px solid #DAF0E3; color:#0E3C2E; border-radius:12px; padding:10px 12px;
+      text-align:center; font-weight:700; font-size:clamp(16px,4.2vw,18px);
+    }
+
     .price{font-size:16px;text-align:center;margin:2px 0}
     .price s{opacity:.6}
     .price strong{color:var(--green);font-size:18px}
 
-    .cta{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:10px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;
-         border-radius:12px;border:2px solid var(--cta);background:var(--cta);color:#fff;
-         font-weight:750;font-size:18px;cursor:pointer;min-width:240px;box-shadow:0 10px 30px rgba(255,63,74,.18);}
-    .btn:hover{background:var(--cta-hover);border-color:var(--cta-hover)}
-    .btn[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.2)}
-    .sub{font-size:14px;color:#222;text-align:center}
+    /* CTA area */
+    .cta{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px}
+    .cta .below{font-size:14px;color:#222;text-align:center}
+    .cta .danger{color:#7c0b17}
 
-    .timer{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:6px}
-    .pill{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-weight:700}
-    .danger{color:#8c000d}
+    /* Timer */
+    .timer{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:6px;flex-wrap:wrap}
+    .pill{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-weight:800}
+    .pill.danger{border-color:#FFD2D6;color:#7c0b17;background:#FFF7F8}
 
-    /* ===== Carrossel horizontal (com scroll-snap) ===== */
-    .carousel{display:grid;gap:10px;margin-top:10px}
-    .rail{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x mandatory}
+    /* Barra “10 por dia / 8 já foram” */
+    .quota{display:grid;gap:8px;margin-top:10px}
+    .qbar{position:relative;height:12px;background:#f0f0f0;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+    .qfill{position:absolute;inset:0 0 0 0;transform-origin:left center;background:linear-gradient(90deg,#1D4D3A,#7C1E28)}
+    .qmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+
+    /* Carrossel depoimentos */
+    .carousel{display:grid;gap:10px;margin-top:8px}
+    .rail{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
     .rail::-webkit-scrollbar{height:8px}
     .rail::-webkit-scrollbar-thumb{background:#ddd;border-radius:999px}
-    .slide{flex:0 0 86%; max-width:86%; scroll-snap-align:center; background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    @media (min-width:760px){ .slide{flex:0 0 48%; max-width:48%} }
+    .slide{flex:0 0 86%;max-width:86%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    @media (min-width:760px){ .slide{flex:0 0 48%;max-width:48%} }
 
-    /* Avatares dos 10 Funcionários — mini carrossel */
-    .thumbrail{display:flex;gap:10px;overflow-x:auto;padding:8px 2px}
-    .thumb{flex:0 0 72px; width:72px; height:72px; border-radius:50%; overflow:hidden; border:2px solid color-mix(in oklab, var(--green) 30%, #fff); box-shadow:0 4px 14px rgba(0,0,0,.08)}
-    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    /* Funcionários — “mesmo formato da página original” (bolha dupla) */
+    .stories{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    @media (max-width:720px){ .stories{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:420px){ .stories{grid-template-columns:repeat(2,1fr)} }
+    .story{
+      background:#fff;border:1px solid color-mix(in oklab, var(--green) 14%, #fff);
+      border-radius:14px;padding:12px;text-align:center;box-shadow:var(--shadow)
+    }
+    .bubble{
+      width:min(92px,30vw);height:min(92px,30vw);margin:0 auto 8px; border-radius:50%; overflow:hidden;
+      background:linear-gradient(135deg,#eee,#fff);
+      box-shadow:0 0 0 3px var(--wine), 0 0 0 6px var(--green);
+    }
+    .story h5{margin:6px 0 0;font-size:.95rem;color:var(--green)}
+    .story small{display:block;color:var(--muted);font-size:.78rem}
 
-    .divider{height:1px;background:var(--border);margin:16px 0}
-    .grid2{display:grid;gap:14px}
-    @media(min-width:760px){ .grid2{grid-template-columns:1.2fr .8fr} }
+    .divider{height:1px;background:var(--border);margin:14px 0}
 
+    /* Lista de entrega */
     .check{list-style:none;padding-left:0;margin:0}
     .check li{padding-left:28px;position:relative;margin:8px 0}
     .check li::before{content:"✅";position:absolute;left:0;top:0}
-    .note{background:#F7FBF8;border:1px solid #DAF0E3;color:#0E3C2E;padding:10px 12px;border-radius:12px}
+
+    /* Área de CTAs finais */
+    .cta-grid{display:grid;gap:10px;grid-template-columns:1fr}
+    @media(min-width:560px){ .cta-grid{grid-template-columns:1fr 1fr} }
+
+    /* Mobile prioritário */
+    @media (hover:none){
+      .slide{flex-basis:88%}
+    }
   </style>
 </head>
 <body>
   <main class="page" role="main" aria-label="Upsell Estúdio Infinito">
 
     <!-- ===================== DOBRA 1 ===================== -->
-    <section class="card" aria-labelledby="h1">
-      <div class="hero">
-        <div class="warn" role="alert" aria-live="polite">
-          <span>⚠️</span>
-          <div>
-            <strong>Ainda não finalizei sua compra…</strong><br>
-            Você está prestes a sair <u>sem ativar sua Equipe Não-Humana com 50% de desconto</u>.
-            <div class="tiny">Não atualize esta página. Se você sair, essa condição pode não aparecer de novo.</div>
-          </div>
-        </div>
+    <section class="card stack" aria-labelledby="h1">
+      <!-- 1) Máximo destaque -->
+      <div class="banner-strong">⚠️ Ainda não finalizou sua compra — não atualize a página.</div>
 
-        <h1 id="h1">Ative sua Equipe Não-Humana agora (R$388 → R$188)</h1>
-        <p class="muted">
-          Mais de 80% das pessoas que compram o guia também entram no Estúdio porque lá os 10 funcionários fazem tudo com você.
-          Sem o Estúdio, você vai precisar fazer o trabalho sozinho.
-        </p>
+      <!-- 2) Segundo maior destaque -->
+      <div class="banner-secondary">Você está prestes a sair <u>sem ativar sua Equipe Não-Humana com 50% de desconto</u>.</div>
 
-        <p class="price"><s>De R$388</s> <strong>por R$188</strong> <span class="tiny">• oferta exclusiva desta etapa</span></p>
+      <h1 id="h1" class="center">Ative o Estúdio agora (R$388 → R$188)</h1>
+      <p class="price center"><s>De R$388</s> <strong>por R$188</strong> <span class="tiny">• exclusivo desta etapa</span></p>
 
-        <!-- TIMER + COPY de perda -->
-        <div class="timer" aria-live="polite" id="timerWrap">
-          <span class="pill">Tempo restante: <span id="countdown">10:00</span></span>
-          <span class="tiny danger">Se esta aba for fechada, a oferta expira.</span>
-        </div>
+      <!-- Timer + “não recarregar” -->
+      <div class="timer" aria-live="polite" id="timerWrap">
+        <span class="pill">Tempo restante: <span id="countdown">10:00</span></span>
+        <span class="pill danger">Se fechar ou atualizar esta aba, a oferta expira</span>
+      </div>
 
-        <!-- CTA 1 -->
-        <div class="cta">
-          <!-- Botão Greenn (exatamente como enviado) -->
-          <button data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" class="btn" id="cta1">
-            Compre Ja!
+      <!-- Botões: compra + recusa (EXATAMENTE como enviados pela Greenn) -->
+      <div class="cta">
+        <div data-v-10de2152="" class="center-btn-preview">
+          <button
+            data-v-10de2152=""
+            data-greenn-one-click="false"
+            data-greenn-upsell="5029"
+            data-greenn-split="1"
+            data-loading="false"
+            onclick="startLoading(this)"
+            type="button"
+            class="btn btn-preview-anime btn-secondary"
+            style="cursor:pointer;width:300px;height:60px;font-size:20px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;">
+            ENTRAR NO ESTÚDIO (acesso imediato)
           </button>
-          <div class="sub">Acesso imediato — publique seu primeiro post em 58 minutos.</div>
-          <div class="tiny">⚡ Esta oferta só aparece agora, durante sua compra. Não atualize a página.</div>
         </div>
 
-        <!-- Mini prova visual imediata (10 funcionários em carrossel de avatares) -->
-        <div class="note" style="margin-top:8px">
-          <strong>Quem trabalha por você dentro do Estúdio:</strong>
-          <div class="thumbrail" aria-label="Carrossel dos 10 Funcionários">
-            <div class="thumb"><img src="1.webp" alt="Leonardo da Viralização"></div>
-            <div class="thumb"><img src="2.webp" alt="Bruno do Branding"></div>
-            <div class="thumb"><img src="3.webp" alt="Maria das Ideias"></div>
-            <div class="thumb"><img src="4.webp" alt="Dudu da Bio"></div>
-            <div class="thumb"><img src="5.webp" alt="Laura das Legendas"></div>
-            <div class="thumb"><img src="6.webp" alt="Larissa dos Roteiros"></div>
-            <div class="thumb"><img src="7.webp" alt="João dos Ganchos"></div>
-            <div class="thumb"><img src="8.webp" alt="Carlos dos Carrosséis"></div>
-            <div class="thumb"><img src="9.webp" alt="José dos Stories"></div>
-            <div class="thumb"><img src="10.webp" alt="Bia do Público"></div>
-          </div>
-          <div class="tiny">Ideias, ganchos, roteiros, carrosséis, stories, legendas e avaliação de viralização — prontos com você.</div>
+        <div data-v-10de2152="" class="center-btn-preview">
+          <a
+            data-v-10de2152=""
+            id="not-buy-link"
+            href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
+            target="_blank"
+            class="mt-2 pointer"
+            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:300px;cursor:pointer;font-size:10px;color:#000;font-style:italic;text-decoration:underline;">
+            PREFIRO FICAR ATRASADO
+          </a>
+        </div>
+
+        <div class="tiny">Acesso imediato — publique seu primeiro post em 58 minutos.</div>
+      </div>
+
+      <!-- Quota “10 por dia / 8 já foram” -->
+      <div class="quota" aria-live="polite">
+        <div class="qmeta"><span>Oferta liberada apenas para 10 pessoas por dia</span><span><strong>8 já foram compradas</strong></span></div>
+        <div class="qbar" aria-label="Progresso de compras do dia (8 de 10)">
+          <div class="qfill" id="qfill" style="width:80%"></div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== DOBRA 2 (opcional) ===================== -->
-    <section class="card" style="margin-top:14px" aria-labelledby="h2">
-      <h2 id="h2" class="center">O que você leva agora (e por que perder isso dói)</h2>
+    <!-- ===================== DOBRA 2 ===================== -->
+    <section class="card stack" style="margin-top:12px" aria-labelledby="h2">
+      <h2 id="h2" class="center">Resultados reais de quem ligou o Estúdio</h2>
 
-      <!-- Prova social em carrossel -->
-      <div class="carousel" aria-label="Resultados de alunos">
+      <!-- Carrossel de feedbacks -->
+      <div class="carousel" aria-label="Feedbacks">
         <div class="rail" id="proofRail">
           <article class="slide">
             <strong>“Postei 7 reels em 30 min.”</strong>
@@ -137,15 +175,15 @@
           </article>
           <article class="slide">
             <strong>“Voltei a postar todo dia.”</strong>
-            <p>Com os funcionários, eu só converso e sai roteiro, legenda e capa. — <em>M.</em></p>
+            <p>Eu converso e sai roteiro, legenda e capa — em minutos. — <em>M.</em></p>
           </article>
           <article class="slide">
             <strong>“+1k seguidores numa semana.”</strong>
-            <p>Parecia impossível sem tempo. O Estúdio me empurra para ação em minutos. — <em>J.</em></p>
+            <p>O Estúdio me puxa pra ação. Sem travar. — <em>J.</em></p>
           </article>
           <article class="slide">
             <strong>“Meu conteúdo paga a assinatura.”</strong>
-            <p>O Post que Paga virou jogo: cada post rende +1 dia no próximo ano. — <em>R.</em></p>
+            <p>Cada post vale +1 dia na renovação. — <em>R.</em></p>
           </article>
         </div>
         <div class="tiny center">Deslize para ver mais depoimentos</div>
@@ -153,24 +191,97 @@
 
       <div class="divider"></div>
 
-      <!-- O que recebe + reforço de perda -->
-      <div class="grid2" style="align-items:start">
-        <div>
-          <ul class="check">
-            <li><strong>Estúdio Infinito</strong> por <strong>R$188</strong> (de R$388) — somente nesta aba.</li>
-            <li><strong>10 Funcionários Não-Humanos:</strong> ideias, ganchos, roteiros, carrosséis, stories, legendas, bio, branding e nota de viralização.</li>
-            <li><strong>Minicursos rápidos</strong> (menos de 30 min) para aprender criando — não é teoria.</li>
-            <li><strong>Garantia do Primeiro Post:</strong> seu post no ar em até 24h ou devolução 100%.</li>
-          </ul>
-          <p class="tiny danger">Se você sair ou atualizar a página, esta condição especial pode encerrar.</p>
+      <!-- 10 Funcionários (mesmo formato da sua página) -->
+      <section aria-labelledby="team">
+        <h2 id="team" class="center">Quem trabalha com você lá dentro</h2>
+        <div class="stories" style="margin-top:8px">
+          <article class="story">
+            <div class="bubble"><img src="1.webp" alt="Leonardo da Viralização" width="92" height="92"></div>
+            <h5>Leonardo da Viralização</h5><small>Nota de viralização</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="2.webp" alt="Bruno do Branding" width="92" height="92"></div>
+            <h5>Bruno do Branding</h5><small>Posicionamento que gruda</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="3.webp" alt="Maria das Ideias" width="92" height="92"></div>
+            <h5>Maria das Ideias</h5><small>Ideias inéditas</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="4.webp" alt="Dudu da Bio" width="92" height="92"></div>
+            <h5>Dudu da Bio</h5><small>Bio que atrai</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="5.webp" alt="Laura das Legendas" width="92" height="92"></div>
+            <h5>Laura das Legendas</h5><small>Texto que prende</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="6.webp" alt="Larissa dos Roteiros" width="92" height="92"></div>
+            <h5>Larissa dos Roteiros</h5><small>Vídeos que retêm</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="7.webp" alt="João dos Ganchos" width="92" height="92"></div>
+            <h5>João dos Ganchos</h5><small>Primeiras frases</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="8.webp" alt="Carlos dos Carrosséis" width="92" height="92"></div>
+            <h5>Carlos dos Carrosséis</h5><small>Slides até o fim</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="9.webp" alt="José dos Stories" width="92" height="92"></div>
+            <h5>José dos Stories</h5><small>Sequências que vendem</small>
+          </article>
+          <article class="story">
+            <div class="bubble"><img src="10.webp" alt="Bia do Público" width="92" height="92"></div>
+            <h5>Bia do Público</h5><small>Dor e desejo certos</small>
+          </article>
         </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Resumo da oferta -->
+      <section aria-labelledby="resumo">
+        <h2 id="resumo" class="center">Resumo do que você recebe agora por R$188</h2>
+        <ul class="check" style="margin-top:6px">
+          <li><strong>Estúdio Infinito</strong> (de R$388 por R$188) — exclusivo nesta página.</li>
+          <li><strong>10 Funcionários Não-Humanos</strong> para ideias, ganchos, roteiros, carrosséis, stories, legendas, bio, branding e nota de viralização.</li>
+          <li><strong>Minicursos rápidos</strong> (menos de 30 min) — aprender criando, sem teoria.</li>
+          <li><strong>Garantia do Primeiro Post</strong> — post no ar em até 24h ou devolução 100%.</li>
+        </ul>
+      </section>
+
+      <!-- CTAs finais -->
+      <div class="cta-grid" style="margin-top:10px">
         <div class="center">
-          <p class="price"><s>De R$388</s> <strong>por R$188</strong></p>
-          <!-- CTA 2 -->
-          <button data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" class="btn" id="cta2">
-            Compre Ja!
-          </button>
-          <div class="tiny" style="margin-top:6px;">Clique e finalize com 1-click. Acesso direto liberado.</div>
+          <div class="price"><s>De R$388</s> <strong>por R$188</strong></div>
+          <div data-v-10de2152="" class="center-btn-preview">
+            <button
+              data-v-10de2152=""
+              data-greenn-one-click="false"
+              data-greenn-upsell="5029"
+              data-greenn-split="1"
+              data-loading="false"
+              onclick="startLoading(this)"
+              type="button"
+              class="btn btn-preview-anime btn-secondary"
+              style="cursor:pointer;width:300px;height:60px;font-size:20px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;">
+              ENTRAR NO ESTÚDIO (acesso imediato)
+            </button>
+          </div>
+        </div>
+
+        <div class="center" style="display:flex;flex-direction:column;justify-content:center">
+          <a
+            data-v-10de2152=""
+            id="not-buy-link-bottom"
+            href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
+            target="_blank"
+            class="mt-2 pointer"
+            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:100%;cursor:pointer;font-size:12px;color:#000;font-style:italic;text-decoration:underline;">
+            PREFIRO FICAR ATRASADO
+          </a>
+          <div class="tiny center" style="margin-top:6px">Se você sair ou atualizar a página, esta condição pode encerrar.</div>
         </div>
       </div>
     </section>
@@ -185,45 +296,36 @@
 
   <!-- ====== Scripts ====== -->
   <script>
-    /* -------- Timer regressivo 10:00 -------- */
+    /* Timer regressivo 10:00 + bloqueio de refresh (mensagem de aviso) */
     (function(){
       let total = 10*60; // 10 minutos
       const el = document.getElementById('countdown');
-      const btn1 = document.getElementById('cta1');
-      const btn2 = document.getElementById('cta2');
-
       function format(s){
         const m = Math.floor(s/60).toString().padStart(2,'0');
         const r = (s%60).toString().padStart(2,'0');
         return `${m}:${r}`;
       }
-
       function expire(reason){
-        el.textContent = '00:00';
-        document.getElementById('timerWrap').innerHTML =
-          `<span class="pill danger">Oferta expirada</span> <span class="tiny">(${reason})</span>`;
-        [btn1,btn2].forEach(b=>{ if(b){ b.setAttribute('disabled','true'); b.removeAttribute('onclick'); }});
+        const wrap = document.getElementById('timerWrap');
+        if (wrap){
+          wrap.innerHTML = `<span class="pill danger">Oferta expirada</span> <span class="tiny">(${reason})</span>`;
+        }
+        // desabilitar CTAs
+        document.querySelectorAll('button[data-greenn-upsell]').forEach(b=>{
+          b.setAttribute('disabled','true'); b.style.opacity='.5'; b.removeAttribute('onclick');
+        });
       }
-
       const iv = setInterval(()=>{
-        total--; 
-        if (total <= 0){ clearInterval(iv); expire('tempo esgotado'); return; }
-        el.textContent = format(total);
-      }, 1000);
+        total--;
+        if (total<=0){ clearInterval(iv); expire('tempo esgotado'); return; }
+        if (el) el.textContent = format(total);
+      },1000);
 
-      // “Saiu, acabou”: se a aba ficar oculta, expira
-      document.addEventListener('visibilitychange', ()=>{
-        if (document.hidden){ expire('aba fechada/oculta'); }
-      });
-
-      // Evitar refresh acidental
-      window.addEventListener('beforeunload', (e)=>{
-        e.preventDefault();
-        e.returnValue = '';
-      });
+      document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ expire('aba oculta/fechada'); } });
+      window.addEventListener('beforeunload', (e)=>{ e.preventDefault(); e.returnValue=''; });
     })();
 
-    /* -------- Prova social: auto-scroll suave -------- */
+    /* Carrossel de depoimentos: auto-scroll */
     (function(){
       const rail = document.getElementById('proofRail');
       if(!rail) return;
@@ -237,30 +339,32 @@
       const timer = setInterval(scrollNext, 2800);
       rail.addEventListener('mouseenter', ()=> clearInterval(timer), {once:true});
     })();
+  </script>
 
-    /* -------- Loader + Script do upsell Greenn (mantidos exatamente como enviados) -------- */
+  <!-- ====== Modal/Loader + Script do upsell Greenn (EXATAMENTE como enviado) ====== -->
+  <script>
     window.startLoading = function(button) {
       const originalHTML = button.innerHTML;
       button.setAttribute('data-loading', 'true');
-      button.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-          <path fill="#ffffff" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
-          <path fill="#ffffff" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z">
-            <animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/>
-          </path>
+      button.innerHTML = ` 
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> 
+          <path fill="#ffffff" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/> 
+          <path fill="#ffffff" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"> 
+            <animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/> 
+          </path> 
         </svg>`;
       setTimeout(() => {
         button.setAttribute('data-loading', 'false');
         button.innerHTML = originalHTML;
       }, 3000);
     };
-    (function (w, d, s, t) {
-      if (w._greennUp) return;
-      w._greennUp = t;
-      var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
-      j.async = true;
-      j.src = "https://pay.greenn.com.br/assets/upsell.js?v=" + t;
-      f.parentNode.insertBefore(j, f);
+    (function (w, d, s, t) { 
+      if (w._greennUp) return; 
+      w._greennUp = t; 
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s); 
+      j.async = true; 
+      j.src = "https://pay.greenn.com.br/assets/upsell.js?v=" + t; 
+      f.parentNode.insertBefore(j, f); 
     })(window, document, "script", Date.now());
   </script>
 </body>
