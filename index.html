@@ -3,414 +3,167 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Upsell — Estúdio Infinito (Oferta exclusiva por 8 minutos)</title>
-  <meta name="description" content="Ainda não finalizei sua compra. Ative sua Equipe Não-Humana agora com preço exclusivo desta página e publique seu primeiro post em 58 minutos." />
-  <meta name="theme-color" content="#1D4D3A" />
+  <title>Upsell — Estúdio Infinito</title>
+  <meta name="theme-color" content="#1D4D3A">
+  <meta name="description" content="Ative sua Equipe Não-Humana e publique sem post em 58 minutos." />
 
   <style>
+    /* ========= Tokens ========= */
     :root{
-      --bg:#ffffff; --text:#141414; --muted:#5e5e5e; --border:#eaeaea; --surface:#fafafa;
-      --wine:#7C1E28; --green:#1D4D3A; --pink:#F9C8D2; --cta:#38571A; --ctaBorder:#AA7942;
-      --radius:14px; --shadow:0 10px 30px rgba(0,0,0,.08);
+      --bg:#ffffff;
+      --text:#1a1a1a;
+      --muted:#6A6A6A;
+      --green:#1D4D3A;
+      --wine:#7C1E28;
+      --gold:#AA7942;
+      --soft-red:#fff4f4;
+      --hard-red:#ff5c5c;
     }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;}
-    .page{max-width:880px;margin:0 auto;padding:86px 18px 64px;} /* espaço pro timer fixo */
-    h1,h2{letter-spacing:-.02em;margin:0 0 10px}
-    h1{font-size:clamp(24px,4.8vw,36px)}
-    h2{font-size:clamp(18px,3.6vw,24px); color:var(--green)}
-    p{margin:8px 0}
-    .muted{color:var(--muted)}
-    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    .hero{display:grid;gap:12px;margin-top:8px}
-    .center{text-align:center}
-    .tiny{font-size:12px;color:var(--muted)}
-    .divider{height:1px;background:var(--border);margin:18px 0}
-    .row{display:grid;gap:14px;margin-top:18px}
-    @media(min-width:760px){ .row{grid-template-columns:1.2fr .8fr} }
-    .quote{border-left:4px solid var(--green);padding:8px 12px;background:var(--surface);border-radius:10px}
 
-    /* TIMER TOP BAR */
+    /* ========= Base ========= */
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text)}
+    body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Inter,"Helvetica Neue",Arial,"Noto Sans";}
+    .page{max-width:860px;margin:0 auto;padding:0 18px}
+
+    /* ========= Top Timer (duas linhas, fixo) ========= */
     .topbar{
-      position:fixed; top:0; left:0; right:0; z-index:9999; background:#0E3C2E; color:#fff;
-      box-shadow:0 8px 24px rgba(0,0,0,.18);
+      position:fixed; top:0; left:0; right:0;
+      background:var(--green); color:#fff;
+      z-index:9999; text-align:center;
+      padding:8px 10px; line-height:1.25; box-shadow:0 2px 10px rgba(0,0,0,.12);
     }
-    .topbar-inner{max-width:980px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 14px}
-    .topbar .label{font-weight:750; letter-spacing:.02em}
-    .timer{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px}
-    .progress{height:4px; background:rgba(255,255,255,.25)}
-    .progress > i{display:block;height:4px;background:#F9C8D2;width:100%}
-
-    /* WARN */
-    .warn{display:flex;align-items:flex-start;gap:10px;background:#FFF7F8;border:1px solid #FFD2D6;color:#8c000d;padding:12px;border-radius:12px}
-
-    /* PREÇO */
-    .price{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:6px}
-    .price .from{color:#8a8a8a;text-decoration:line-through;font-weight:700}
-    .price .to{font-size:28px;font-weight:900;color:var(--wine)}
-    .price-badge{display:inline-flex;align-items:center;gap:6px;background:#FFF0F3;border:1px solid #ffd6dd;color:#7C1E28;border-radius:999px;padding:6px 12px;font-weight:750}
-
-    /* CTA WRAPPER */
-    .cta-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px}
-
-    /* Seções importadas (Stories / Bônus / Resumo) — estilização base do seu HTML */
-    .muted{color:#666}
-    .block{border:1px solid var(--border);border-radius:10px;background:#fff;padding:16px}
-    .checklist{list-style:none;padding-left:0;margin-left:0}
-    .checklist li{padding-left:28px;position:relative;margin:6px 0}
-    .checklist li::before{content:"✅";position:absolute;left:0;top:0}
-    .container{max-width: 860px; margin: 0 auto; padding: 0}
-    .section-tight{padding: 8px 0; background: var(--bg);}
-    .center{text-align:center}
-    .small{font-size:.92rem}
-    .h-serif{font-weight:750; letter-spacing:-.01em}
-    .stories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px}
-    .story{background:#fff;border:1px solid color-mix(in oklab, var(--green) 14%, #fff);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.04)}
-    .story .bubble{width:84px;height:84px;border-radius:50%;margin-inline:auto;overflow:hidden;background:linear-gradient(135deg,#eee,#fff);box-shadow:0 0 0 3px var(--wine), 0 0 0 6px var(--green)}
-    .story .bubble img{width:100%;height:100%;object-fit:cover;display:block}
-    .story h5{margin:12px 0 2px 0;font-size:.98rem;color:var(--green)}
-    .story small{color:#666}
-    .story-btn{all:unset;display:block;width:100%;cursor:pointer}
-    dialog{ border:none; border-radius:14px; padding:0; width:min(92vw,680px); box-shadow:0 30px 80px rgba(0,0,0,.25); }
-    dialog::backdrop{background:rgba(0,0,0,.35)}
-    .modal{padding:18px; background:#fff; border-radius:14px}
-    .modal header{ display:flex; justify-content:space-between; align-items:center; gap:12px; border-bottom:1px solid var(--pink); padding-bottom:8px }
-    .modal .close{ background:transparent; border:1px solid transparent; color:var(--wine); font-weight:700; cursor:pointer; border-radius:10px; padding:6px 10px; }
-    .modal .close:focus{outline:2px solid var(--wine); outline-offset:2px}
-
-    .gifts{ display:grid; grid-template-columns:1fr; gap:18px; }
-    @media (min-width:640px){ .gifts{grid-template-columns:1fr 1fr} }
-    .gift-card{
-      display:flex; gap:16px; align-items:flex-start;
-      border:1px solid color-mix(in oklab, var(--border) 90%, #000);
-      border-radius:14px; background:#fff;
-      padding:18px; box-shadow:0 4px 18px rgba(0,0,0,.06);
+    .topbar .line-1{font-weight:800; letter-spacing:.2px}
+    .topbar .line-2{display:block; font-weight:900; font-size:20px; margin-top:2px}
+    .topbar .timer-pulse{animation:pulse 1.1s ease-in-out infinite}
+    @keyframes pulse{
+      0%{text-shadow:0 0 0 rgba(0,0,0,0)}
+      70%{text-shadow:0 0 10px rgba(255,255,255,.32)}
+      100%{text-shadow:0 0 0 rgba(0,0,0,0)}
     }
-    .gift-icon{ flex:0 0 56px; height:56px; width:56px; display:grid; place-items:center; border:none; border-radius:12px; background: linear-gradient(180deg,#fff 0%, #f7f7f7 100%); font-size:24px; }
-    .gift-body h4{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:2px 0 6px 0; font-size:16px }
-    .gift-meta{color:#666; font-size:.92rem}
-    .gift-badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; font-size:.8rem; font-weight:600; color:#222; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); border-radius:999px; }
+    .topbar.warn{background:#B05C00;}     /* <= 5 min */
+    .topbar.urgent{background:#7C1E28;}   /* <= 2 min */
 
-    /* CTA secundário flutuante opcional (desligado por padrão) */
-    .nowrap{ white-space: nowrap; }
-@media (max-width: 420px){
-  .topbar .label{ display:block; line-height:1.25; }
-}
-.main-alert {
-  background: #fff4f4;
-  border: 2px solid #ff5c5c;
-  border-radius: 14px;
-  padding: 18px 14px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-.alert-icon {
-  font-size: 28px;
-  line-height: 1;
-  flex: 0 0 32px;
-}
-.alert-title {
-  font-size: clamp(20px, 4vw, 26px);
-  color: #7C1E28;
-  margin: 0 0 4px 0;
-  line-height: 1.2;
-}
-.alert-sub {
-  font-size: 15px;
-  color: #333;
-  margin: 0;
-}
+    /* Compensação da barra fixa */
+    body{padding-top:72px}
+
+    /* ========= Card / Dobra Única ========= */
+    .card{
+      margin:14px auto 28px;
+      border:1px solid #EAEAEA; border-radius:16px; background:#fff;
+      box-shadow:0 6px 24px rgba(0,0,0,.06);
+      padding:16px 14px 18px;
+    }
+    @media(min-width:640px){ .card{padding:20px 22px 22px} }
+
+    /* Alerta principal */
+    .main-alert{
+      background:var(--soft-red);
+      border:2px solid var(--hard-red);
+      border-radius:14px;
+      padding:12px;
+      display:flex; gap:10px; align-items:flex-start;
+      margin:2px auto 12px; max-width:720px;
+    }
+    .alert-icon{font-size:24px; flex:0 0 28px}
+    .alert-title{
+      margin:0 0 4px 0; color:var(--wine);
+      font-size:clamp(18px,4.5vw,24px); line-height:1.18; font-weight:900;
+    }
+    .alert-sub{margin:0; color:#333; font-size:15px}
+
+    /* Headline + frase compacta */
+    .headline{margin:8px 0 2px 0; text-align:center; color:var(--green); font-size:20px; font-weight:800}
+    .pitch{margin:6px auto 10px; text-align:center; max-width:520px; color:var(--muted); font-size:15px}
+
+    /* Preço (DE → POR) */
+    .price{display:grid; place-items:center; gap:2px; margin:10px 0 8px}
+    .price .from{color:#9c9c9c; text-decoration:line-through; font-size:18px}
+    .price .to{color:var(--wine); font-weight:900; font-size:clamp(28px,6vw,40px); line-height:1.1}
+
+    /* CTA Greenn */
+    .center-btn-preview{display:flex; justify-content:center}
+    .btn-secondary{
+      cursor:pointer; width:300px; height:60px;
+      font-size:20px; color:#fff; background:var(--green);
+      border:2px solid var(--gold); border-radius:12px; font-weight:bold;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      transition:transform .06s ease, box-shadow .12s ease;
+      box-shadow:0 10px 30px rgba(29,77,58,.16);
+    }
+    .btn-secondary[data-loading="true"]{opacity:.9}
+    .btn-secondary:active{transform:translateY(1px)}
+    .cta-sub{margin:8px 0 0; text-align:center; font-size:11px; color:#000; font-style:italic}
+
+    /* Texto minúsculo */
+    .tiny{font-size:12px; color:#666; text-align:center; margin-top:8px; font-style:italic}
   </style>
 </head>
 <body>
 
- <!-- TOP TIMER BAR -->
-<div class="topbar" role="region" aria-label="Oferta exclusiva desta página — não recarregue ou você pode perder.">
-  <div class="topbar-inner">
-    <div class="label">
-      Oferta exclusiva desta página <span class="nowrap">não recarregue</span> ou você pode perder.
-    </div>
-    <div class="timer" id="timer">08:00</div>
+  <!-- TIMER FIXO (duas linhas) -->
+  <div class="topbar" id="topbar" role="region" aria-label="Oferta temporária">
+    <div class="line-1">Oferta exclusiva — não recarregue ou você pode perder.</div>
+    <strong class="line-2 timer-pulse"><span id="timer">08:00</span></strong>
   </div>
-  <div class="progress"><i id="progressFill"></i></div>
-</div>
 
-<main class="page" role="main">
+  <main class="page" role="main">
+    <!-- DOBRA ÚNICA -->
+    <section class="card" aria-labelledby="upsell-h1">
 
-    <!-- DOBRA 1 — Interrupção de fechamento + preço exclusivo + decisão imediata -->
-<section class="card" aria-labelledby="upsell-h1">
-  <div class="hero">
-
-    <!-- ALERTA PRINCIPAL -->
-    <div class="warn main-alert" role="alert" aria-live="polite">
-      <div class="alert-icon">⚠️</div>
-      <div class="alert-text">
-        <h1 class="alert-title">Você ainda não finalizou sua compra!</h1>
-        <p class="alert-sub">
-          Esta é sua única chance de ativar o Estúdio com preço exclusivo desta página.
-          Se sair agora, a oferta desaparece.
-        </p>
-      </div>
-    </div>
-
-    <!-- SUBTÍTULO (apoio) -->
-    <h2 id="upsell-h1" class="center">Ative sua Equipe Não-Humana agora</h2>
-    <p class="center muted">
-      Você pode tentar fazer sozinha… ou deixar seus 10 funcionários não humanos fazerem tudo com você.
-    <div class="tiny">A cada 3 que compram o guia entram no Estúdio Infinito.</div>
-    </p>
-
-        <!-- PREÇO -->
-<div class="price center" aria-label="Preço promocional">
-  <span class="from">de R$ 388</span>
-  <span class="to">por R$ 188</span>
-</div>
-<p class="tiny center">Não recarregue a página — ao sair, esta condição pode não aparecer novamente.</p>
-
-        <!-- CTA GREENN (como enviado) -->
-        <div class="cta-wrap" aria-live="polite" id="ctaTop">
-          <div data-v-10de2152="" class="center-btn-preview">
-            <button data-v-10de2152="" data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" type="button" class="btn btn-preview-anime btn-secondary" style="cursor: pointer; width: 300px; height: 60px; font-size: 20px; color: rgb(255, 255, 255); background: rgb(56, 87, 26); border: 2px solid rgb(170, 121, 66); border-radius: 12px; font-weight: bold;">ENTRAR NO ESTÚDIO (acesso imediato)</button>
-          </div>
-          <div data-v-10de2152="" class="center-btn-preview">
-            <!-- vazio, mantido pela Greenn -->
-          </div>
-          <div data-v-10de2152="" class="center-btn-preview">
-            <a data-v-10de2152="" id="not-buy-link" href="" target="_blank" class="mt-2 pointer" style="display: flex; font-family: Montserrat; justify-content: center; width: 300px; cursor: pointer; font-size: 10px; color: rgb(0, 0, 0); font-style: italic;">PREFIRO FICAR ATRASADO</a>
-          </div>
-          <div class="tiny">Acesso imediato — publique seu primeiro post em 58 minutos.</div>
+      <!-- ALERTA -->
+      <div class="main-alert" role="alert" aria-live="polite">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-text">
+          <h1 class="alert-title">Você ainda não finalizou sua compra!</h1>
+          <p class="alert-sub">Última chance de ativar sua Equipe Não-Humana com este valor.</p>
         </div>
       </div>
-    </section>
 
-    <!-- DOBRA 2 — Stories + Bônus + Resumo + CTA final -->
-    <section class="card" style="margin-top:14px" aria-labelledby="conheca-e-bonus">
-      <h2 id="conheca-e-bonus" class="center">O que muda quando o Estúdio entra no jogo</h2>
+      <!-- HEADLINE + PROMESSA CURTA -->
+      <h2 id="upsell-h1" class="headline">Publique sem post em 58 minutos.</h2>
+      <p class="pitch">Você pode tentar fazer sozinha… ou deixar seus 10 funcionários não humanos fazerem tudo com você.</p>
 
-      <!-- Stories — Equipe Não-Humana -->
-      <section class="section-tight" id="equipe" style="margin-top:6px">
-        <div class="container">
-          <h3 class="h-serif center" style="margin:0 0 4px">CONHEÇA A SUA EQUIPE NÃO HUMANA</h3>
-          <p class="center muted small" style="margin:0 0 10px">Toque em um perfil para ver o trabalho de cada “funcionário”.</p>
-          <div class="stories-grid" id="storiesGrid" aria-live="polite"></div>
-        </div>
-      </section>
+      <!-- PREÇO (DE → POR) -->
+      <div class="price" aria-label="Preço promocional">
+        <div class="from">de R$ 388</div>
+        <div class="to">por R$ 188</div>
+      </div>
 
-      <div class="divider"></div>
+      <!-- CTA (Greenn) -->
+      <div class="center-btn-preview">
+        <button
+          data-greenn-one-click="false"
+          data-greenn-upsell="5029"
+          data-greenn-split="1"
+          data-loading="false"
+          onclick="startLoading(this)"
+          type="button"
+          class="btn btn-preview-anime btn-secondary"
+          style="width:300px; height:60px;">
+          ENTRAR NO ESTÚDIO (acesso imediato)
+        </button>
+      </div>
 
-      <!-- BÔNUS -->
-      <section aria-labelledby="bonus">
-        <h3 id="bonus" class="center" style="margin:0 0 8px">🎁 BÔNUS QUE VOCÊ RECEBE IMEDIATAMENTE</h3>
-        <div class="gifts">
-          <article class="gift-card gift-1">
-            <div class="gift-icon" aria-hidden="true">🎁</div>
-            <div class="gift-body">
-              <h4>💛 BÔNUS #1: Post que Paga<span class="gift-badge">Dinheiro de Volta</span></h4>
-              <p>Cada post criado com a Equipe Não Humana e publicado rende <strong>+1 dia pago de assinatura</strong> no próximo ano.</p>
-              <p class="gift-meta">Seu conteúdo literalmente paga sua renovação.</p>
-            </div>
-          </article>
-          <article class="gift-card gift-2">
-            <div class="gift-icon" aria-hidden="true">🏆</div>
-            <div class="gift-body">
-              <h4>BÔNUS #2: Campeonato Infinito<span class="gift-badge">Recompensa</span></h4>
-              <p>Publique, some pontos, suba no ranking e ganhe prêmios reais enviados pra sua casa.</p>
-              <p class="gift-meta">Gamificação para acelerar consistência.</p>
-            </div>
-          </article>
-          <article class="gift-card gift-3">
-            <div class="gift-icon" aria-hidden="true">💬</div>
-            <div class="gift-body">
-              <h4>BÔNUS #3: Comunidade Sobre Humano<span class="gift-badge">Único</span></h4>
-              <p>Feedbacks práticos e chat de ajuda em tempo real. Ninguém fica perdido; sempre tem alguém pra destravar seu post.</p>
-              <p class="gift-meta">A parte humana do Estúdio.</p>
-            </div>
-          </article>
-          <article class="gift-card gift-4">
-            <div class="gift-icon" aria-hidden="true">🎨</div>
-            <div class="gift-body">
-              <h4>BÔNUS #4: Design com ChatGPT (sem abrir o Canva)<span class="gift-badge">Presente</span></h4>
-              <p>Crie todos os seus designs conversando em 10min ⏳</p>
-            </div>
-          </article>
-          <article class="gift-card gift-5">
-            <div class="gift-icon" aria-hidden="true">🧠</div>
-            <div class="gift-body">
-              <h4>BÔNUS #5: Gêmea Digital no celular (fotos com IA)<span class="gift-badge">Incalculável</span></h4>
-              <p>Fotos com IA sem aparecer. Passo a passo direto no celular. Pronto em 20 min ⏳</p>
-            </div>
-          </article>
-          <article class="gift-card gift-6">
-            <div class="gift-icon" aria-hidden="true">🎥</div>
-            <div class="gift-body">
-              <h4>BÔNUS #6: Como gravo 7 Reels em 30 min <span class="gift-badge">Bastidor</span></h4>
-              <p>Meu fluxo real de gravação enxuto, replicável no mesmo dia.</p>
-            </div>
-          </article>
-          <article class="gift-card gift-7">
-            <div class="gift-icon" aria-hidden="true">⚡</div>
-            <div class="gift-body">
-              <h4>BÔNUS #7: Ressuscite seu perfil em 15 dias<span class="gift-badge">Desbloqueado</span></h4>
-              <p>Plano de recuperação de perfis na UTI usando a Equipe Não Humana.</p>
-            </div>
-          </article>
-          <article class="gift-card gift-8">
-            <div class="gift-icon" aria-hidden="true">🛠️</div>
-            <div class="gift-body">
-              <h4>BÔNUS #8: Crie seu próprio Funcionário Não Humano <span class="gift-badge">Exclusivo</span></h4>
-              <p>Aprenda a clonar seu conhecimento em um GPT que trabalha pra você em 20 minutos.</p>
-            </div>
-          </article>
-          <article class="gift-card gift-9">
-            <div class="gift-icon" aria-hidden="true">🎙️</div>
-            <div class="gift-body">
-              <h4>BÔNUS #9: Live Estúdio Aberto <span class="gift-badge">Impagável</span></h4>
-              <p>Se você viralizar criando com a Equipe Não Humana, vem comigo pra uma live no meu perfil pra mostrar como fez.</p>
-            </div>
-          </article>
-        </div>
-      </section>
+      <a id="not-buy-link" href="#" target="_blank" class="cta-sub">PREFIRO FICAR ATRASADO</a>
 
-      <div class="divider"></div>
-
-      <!-- RESUMO -->
-      <section aria-labelledby="resumo">
-        <h3 id="resumo" class="center" style="margin:0 0 8px">🧶 RESUMINDO O ESTÚDIO INFINITO</h3>
-        <div class="block">
-          <ul class="checklist">
-            <li><strong>10 Funcionários Não Humanos</strong> — ideias, ganchos, roteiros, carrosséis, stories e legendas sem começar do zero.</li>
-            <li><strong>Minicursos rápidos</strong> — aprender criando (sem teoria, sem enrolação).</li>
-            <li><strong>Garantia do primeiro post</strong> — 24h ou devolução 100%.</li>
-            <li><strong>Post que Paga</strong> — cada post publicado paga +1 dia da sua assinatura.</li>
-            <li><strong>Comunidade Sobre Humano</strong> — feedback, ajuda e criação conjunta.</li>
-          </ul>
-        </div>
-
-        <div class="center" style="margin-top:10px" id="ctaBottom">
-          <!-- CTA repetido (igual ao de cima) -->
-          <div data-v-10de2152="" class="center-btn-preview">
-            <button data-v-10de2152="" data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" type="button" class="btn btn-preview-anime btn-secondary" style="cursor: pointer; width: 300px; height: 60px; font-size: 20px; color: rgb(255, 255, 255); background: rgb(56, 87, 26); border: 2px solid rgb(170, 121, 66); border-radius: 12px; font-weight: bold;">ENTRAR NO ESTÚDIO (acesso imediato)</button>
-          </div>
-          <div class="tiny" style="margin-top:6px;">Oferta exclusiva desta etapa. Se você fechar esta página, ela pode não aparecer novamente.</div>
-        </div>
-      </section>
+      <p class="tiny">Não recarregue a página — ao sair, esta condição pode não aparecer novamente.</p>
     </section>
   </main>
 
-  <!-- SCRIPTS -->
+  <!-- TIMER + URGÊNCIA + GRENN -->
   <script>
-    // ===== TIMER 8 MIN =====
-    (function(){
-      const DURATION = 8 * 60; // 8 minutes in seconds
-      let remaining = DURATION;
-      const timerEl = document.getElementById('timer');
-      const timerInline = document.getElementById('timerInline');
-      const progressFill = document.getElementById('progressFill');
-
-      function format(s){
-        const m = Math.floor(s/60).toString().padStart(2,'0');
-        const ss = (s%60).toString().padStart(2,'0');
-        return `${m}:${ss}`;
-      }
-      function tick(){
-        remaining--;
-        if (remaining < 0){ remaining = 0; }
-        const pct = (remaining / DURATION) * 100;
-        if (timerEl) timerEl.textContent = format(remaining);
-        if (timerInline) timerInline.textContent = format(remaining);
-        if (progressFill) progressFill.style.width = pct + '%';
-
-        if (remaining === 0){
-          // Desabilita CTAs do upsell
-          document.querySelectorAll('[data-greenn-upsell]').forEach(btn=>{
-            btn.setAttribute('disabled','true');
-            btn.style.filter = 'grayscale(1)';
-            btn.style.cursor = 'not-allowed';
-            btn.textContent = 'Oferta encerrada';
-          });
-          clearInterval(intv);
-        }
-      }
-      if (timerEl){ timerEl.textContent = format(remaining); }
-      if (timerInline){ timerInline.textContent = format(remaining); }
-      if (progressFill){ progressFill.style.width = '100%'; }
-      const intv = setInterval(tick, 1000);
-    })();
-
-    // ===== STORIES (Equipe Não-Humana) =====
-    const ENH = [
-      { nome:'João dos Ganchos',        func:'Primeiras frases que fazem a pessoa parar.',                                      foto:'7.webp'  },
-      { nome:'Bia do Público',          func:'Descobre exatamente onde dói no seu público.',                                   foto:'10.webp' },
-      { nome:'Leonardo da Viralização', func:'Avalia seu post sem dó com uma nota de 0 a 10 para viralizar sem limite.',       foto:'1.webp'  },
-      { nome:'Laura das Legendas',      func:'Escreve legendas que fazem o seguidor ler até o fim.',                           foto:'5.webp'  },
-      { nome:'Bruno do Branding',       func:'Um posicionamento que gruda na mente das pessoas.',                               foto:'2.webp'  },
-      { nome:'José dos Stories',        func:'Transforma seus stories em sequências que vendem.',                               foto:'9.webp'  },
-      { nome:'Larissa dos Roteiros',    func:'Escreve roteiros de vídeo que retêm atenção.',                                    foto:'6.webp'  },
-      { nome:'Maria das Ideias',        func:'Ideias que você nunca pensaria.',                                                 foto:'3.webp'  },
-      { nome:'Carlos dos Carrosséis',   func:'Cria carrosséis prontos pra deslizar até o último slide.',                        foto:'8.webp'  },
-      { nome:'Dudu da Bio',             func:'Ajusta sua bio pra atrair os seguidores certos.',                                 foto:'4.webp'  }
-    ];
-
-    (function mountENH(){
-      const grid = document.getElementById('storiesGrid');
-      if(!grid) return;
-      grid.innerHTML = '';
-      ENH.forEach(p=>{
-        const card = document.createElement('div');
-        card.className='story';
-        card.innerHTML = `
-          <button class="story-btn" aria-label="Abrir perfil de ${p.nome}">
-            <div class="bubble" aria-hidden="false">
-              <picture>
-                <source srcset="${p.foto}" type="image/webp" />
-                <img src="${p.foto}" alt="${p.nome}" loading="lazy" decoding="async" width="84" height="84" />
-              </picture>
-            </div>
-            <h5>${p.nome}</h5>
-            <small>${p.func}</small>
-          </button>
-        `;
-        card.querySelector('.story-btn').addEventListener('click', ()=> openENHModal(p));
-        grid.appendChild(card);
-      });
-
-      function openENHModal(p){
-        if (document.querySelector('dialog[open]')) return;
-        const dlg = document.createElement('dialog');
-        dlg.setAttribute('aria-label', `Perfil de ${p.nome}`);
-        dlg.innerHTML = `
-          <div class="modal">
-            <header>
-              <h3 class="h-serif" style="margin:0">${p.nome}</h3>
-              <button class="close" aria-label="Fechar">fechar ✕</button>
-            </header>
-            <div style="padding-top:10px">
-              <p><strong>Função:</strong> ${p.func}</p>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(dlg);
-        const closeBtn = dlg.querySelector('.close');
-        closeBtn.addEventListener('click', ()=> dlg.close());
-        dlg.addEventListener('close', ()=> dlg.remove());
-        dlg.addEventListener('keydown', (e)=> { if(e.key==='Escape') dlg.close(); });
-        dlg.showModal();
-        closeBtn.focus();
-      }
-    })();
-
-    // ===== GRENN SCRIPT + LOADING (como enviado por você) =====
+    // Loader do botão + script da Greenn
     window.startLoading = function(button) {
       const originalHTML = button.innerHTML;
       button.setAttribute('data-loading', 'true');
       button.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
           <path fill="#ffffff" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
           <path fill="#ffffff" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z">
             <animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/>
           </path>
-        </svg>`;
+        </svg>
+        <span style="margin-left:6px">processando…</span>`;
       setTimeout(() => {
         button.setAttribute('data-loading', 'false');
         button.innerHTML = originalHTML;
@@ -420,10 +173,39 @@
       if (w._greennUp) return;
       w._greennUp = t;
       var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
-      j.async = true;
-      j.src = "https://pay.greenn.com.br/assets/upsell.js?v=" + t;
+      j.async = true; j.src = "https://pay.greenn.com.br/assets/upsell.js?v=" + t;
       f.parentNode.insertBefore(j, f);
     })(window, document, "script", Date.now());
+
+    // Timer 8 minutos com mudança de cor (alerta/urgência)
+    (function(){
+      let time = 8 * 60; // 8 min em segundos
+      const el = document.getElementById('timer');
+      const bar = document.getElementById('topbar');
+
+      function tick(){
+        const m = String(Math.floor(time/60)).padStart(2,'0');
+        const s = String(time%60).padStart(2,'0');
+        el.textContent = `${m}:${s}`;
+
+        // Mudança de cor progressiva
+        if(time <= 120){              // <= 2 min
+          bar.classList.add('urgent');
+          bar.classList.remove('warn');
+        } else if(time <= 300){       // <= 5 min
+          bar.classList.add('warn');
+        }
+
+        // Batimento visual mais forte nos últimos 30s
+        if(time <= 30) el.classList.add('timer-pulse');
+
+        if(time > 0){
+          time--;
+          setTimeout(tick, 1000);
+        }
+      }
+      tick();
+    })();
   </script>
 </body>
 </html>
