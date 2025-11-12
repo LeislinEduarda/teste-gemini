@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Upsell — Estúdio Infinito • R$388 → R$188 (Apenas nesta página)</title>
   <meta name="theme-color" content="#1D4D3A" />
-  <meta name="description" content="Não atualize a página. Oferta exclusiva enquanto esta aba estiver aberta: Estúdio Infinito de R$388 por R$188. Ative sua Equipe Não-Humana e publique seu primeiro post em 58 minutos." />
+  <meta name="description" content="Não atualize a página. Oferta exclusiva enquanto esta aba estiver aberta: Estúdio Infinito de R$388 por R$188. Publique seu primeiro post em 58 minutos usando a Equipe Não-Humana." />
 
   <style>
     :root{
@@ -40,14 +40,15 @@
       text-align:center; font-weight:700; font-size:clamp(16px,4.2vw,18px);
     }
 
-    .price{font-size:16px;text-align:center;margin:2px 0}
-    .price s{opacity:.6}
-    .price strong{color:var(--green);font-size:18px}
+    /* Preço — estilo único/homogêneo */
+    .price{display:flex;gap:10px;justify-content:center;align-items:center;margin:4px 0}
+    .price .from{opacity:.6;text-decoration:line-through}
+    .price .to{color:var(--green);font-weight:800}
+    .price .badge{font-size:12px;color:#7c0b17;background:#FFF7F8;border:1px solid #FFD2D6;border-radius:999px;padding:4px 8px}
 
     /* CTA area */
     .cta{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px}
-    .cta .below{font-size:14px;color:#222;text-align:center}
-    .cta .danger{color:#7c0b17}
+    .nowrap{white-space:nowrap}
 
     /* Timer */
     .timer{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:6px;flex-wrap:wrap}
@@ -60,15 +61,15 @@
     .qfill{position:absolute;inset:0 0 0 0;transform-origin:left center;background:linear-gradient(90deg,#1D4D3A,#7C1E28)}
     .qmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
 
-    /* Carrossel depoimentos */
+    /* Carrossel depoimentos (sem auto-scroll para não “pular”) */
     .carousel{display:grid;gap:10px;margin-top:8px}
-    .rail{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+    .rail{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
     .rail::-webkit-scrollbar{height:8px}
     .rail::-webkit-scrollbar-thumb{background:#ddd;border-radius:999px}
     .slide{flex:0 0 86%;max-width:86%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
     @media (min-width:760px){ .slide{flex:0 0 48%;max-width:48%} }
 
-    /* Funcionários — “mesmo formato da página original” (bolha dupla) */
+    /* Funcionários — “mesmo formato da sua página” */
     .stories{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
     @media (max-width:720px){ .stories{grid-template-columns:repeat(3,1fr)} }
     @media (max-width:420px){ .stories{grid-template-columns:repeat(2,1fr)} }
@@ -86,19 +87,21 @@
 
     .divider{height:1px;background:var(--border);margin:14px 0}
 
-    /* Lista de entrega */
+    /* Lista — resumo + bônus */
     .check{list-style:none;padding-left:0;margin:0}
     .check li{padding-left:28px;position:relative;margin:8px 0}
     .check li::before{content:"✅";position:absolute;left:0;top:0}
+
+    .bonus{display:grid;gap:10px}
+    .bonus-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);border-radius:12px;padding:10px;background:#fff}
+    .bonus-emoji{flex:0 0 28px;font-size:20px;line-height:1}
 
     /* Área de CTAs finais */
     .cta-grid{display:grid;gap:10px;grid-template-columns:1fr}
     @media(min-width:560px){ .cta-grid{grid-template-columns:1fr 1fr} }
 
-    /* Mobile prioritário */
-    @media (hover:none){
-      .slide{flex-basis:88%}
-    }
+    /* Hacks visuais para esconder “Oferta inspirada” caso apareça por script externo */
+    .inspired-offer, #inspired-offer{display:none !important}
   </style>
 </head>
 <body>
@@ -112,16 +115,22 @@
       <!-- 2) Segundo maior destaque -->
       <div class="banner-secondary">Você está prestes a sair <u>sem ativar sua Equipe Não-Humana com 50% de desconto</u>.</div>
 
-      <h1 id="h1" class="center">Ative o Estúdio agora (R$388 → R$188)</h1>
-      <p class="price center"><s>De R$388</s> <strong>por R$188</strong> <span class="tiny">• exclusivo desta etapa</span></p>
+      <h1 id="h1" class="center">Ative o Estúdio agora</h1>
+      <!-- Preço homogêneo (padrão único) -->
+      <div class="price" aria-label="Preço">
+        <span class="from">De R$388</span>
+        <span class="to">por R$188</span>
+        <span class="badge">exclusivo desta etapa</span>
+      </div>
 
-      <!-- Timer + “não recarregar” -->
+      <!-- Timer + frase “58 minutos” -->
       <div class="timer" aria-live="polite" id="timerWrap">
         <span class="pill">Tempo restante: <span id="countdown">10:00</span></span>
         <span class="pill danger">Se fechar ou atualizar esta aba, a oferta expira</span>
       </div>
+      <p class="center muted" style="margin-top:2px">Publique seu primeiro post em 58 minutos usando a Equipe Não-Humana.</p>
 
-      <!-- Botões: compra + recusa (EXATAMENTE como enviados pela Greenn) -->
+      <!-- Botões: compra + recusa (com tamanho maior e nowrap para não quebrar o “(acesso imediato)”) -->
       <div class="cta">
         <div data-v-10de2152="" class="center-btn-preview">
           <button
@@ -133,8 +142,8 @@
             onclick="startLoading(this)"
             type="button"
             class="btn btn-preview-anime btn-secondary"
-            style="cursor:pointer;width:300px;height:60px;font-size:20px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;">
-            ENTRAR NO ESTÚDIO (acesso imediato)
+            style="cursor:pointer;width:360px;height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
+            <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
           </button>
         </div>
 
@@ -145,12 +154,10 @@
             href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
             target="_blank"
             class="mt-2 pointer"
-            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:300px;cursor:pointer;font-size:10px;color:#000;font-style:italic;text-decoration:underline;">
+            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:360px;cursor:pointer;font-size:11px;color:#000;font-style:italic;text-decoration:underline;">
             PREFIRO FICAR ATRASADO
           </a>
         </div>
-
-        <div class="tiny">Acesso imediato — publique seu primeiro post em 58 minutos.</div>
       </div>
 
       <!-- Quota “10 por dia / 8 já foram” -->
@@ -166,7 +173,7 @@
     <section class="card stack" style="margin-top:12px" aria-labelledby="h2">
       <h2 id="h2" class="center">Resultados reais de quem ligou o Estúdio</h2>
 
-      <!-- Carrossel de feedbacks -->
+      <!-- Carrossel de feedbacks (sem auto-scroll) -->
       <div class="carousel" aria-label="Feedbacks">
         <div class="rail" id="proofRail">
           <article class="slide">
@@ -251,10 +258,29 @@
         </ul>
       </section>
 
+      <!-- BÔNUS (8 itens) -->
+      <section aria-labelledby="bonus" style="margin-top:10px">
+        <h2 id="bonus" class="center">Bônus que entram agora</h2>
+        <div class="bonus" style="margin-top:6px">
+          <div class="bonus-item"><div class="bonus-emoji">💛</div><div><strong>Post que Paga</strong><br>Cada post publicado rende +1 dia de acesso na próxima renovação.</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">🏆</div><div><strong>Campeonato Infinito</strong><br>Ranking, pontos e prêmios para acelerar sua consistência.</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">💬</div><div><strong>Comunidade Sobre-Humano</strong><br>Feedback prático e chat de ajuda em tempo real.</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">🎨</div><div><strong>Design com ChatGPT</strong><br>Crie seus designs conversando (sem abrir o Canva).</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">🧠</div><div><strong>Gêmea Digital</strong><br>Fotos com IA pelo celular para postar sem aparecer.</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">🎥</div><div><strong>7 Reels em 30 min</strong><br>Fluxo de gravação enxuto para publicar hoje.</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">⚡</div><div><strong>Ressuscite seu perfil</strong><br>Plano de 15 dias para tirar o perfil da UTI.</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">🛠️</div><div><strong>Crie seu Funcionário Não-Humano</strong><br>Clone seu conhecimento em um GPT que trabalha por você.</div></div>
+        </div>
+      </section>
+
       <!-- CTAs finais -->
-      <div class="cta-grid" style="margin-top:10px">
+      <div class="cta-grid" style="margin-top:12px">
         <div class="center">
-          <div class="price"><s>De R$388</s> <strong>por R$188</strong></div>
+          <div class="price" aria-label="Preço">
+            <span class="from">De R$388</span>
+            <span class="to">por R$188</span>
+            <span class="badge">exclusivo desta etapa</span>
+          </div>
           <div data-v-10de2152="" class="center-btn-preview">
             <button
               data-v-10de2152=""
@@ -265,8 +291,8 @@
               onclick="startLoading(this)"
               type="button"
               class="btn btn-preview-anime btn-secondary"
-              style="cursor:pointer;width:300px;height:60px;font-size:20px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;">
-              ENTRAR NO ESTÚDIO (acesso imediato)
+              style="cursor:pointer;width:360px;height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
+              <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
             </button>
           </div>
         </div>
@@ -296,7 +322,22 @@
 
   <!-- ====== Scripts ====== -->
   <script>
-    /* Timer regressivo 10:00 + bloqueio de refresh (mensagem de aviso) */
+    /* Oculta qualquer bloco que venha nomeado como “Oferta inspirada” por script externo */
+    (function(){
+      const kill = (root) => {
+        const all = root.querySelectorAll('h1,h2,h3,div,section,span');
+        all.forEach(el=>{
+          const t = (el.textContent||'').trim().toLowerCase();
+          if(t.includes('oferta inspirada')){ el.style.display='none'; }
+        });
+      };
+      kill(document);
+      // Se algo for injetado depois:
+      const mo = new MutationObserver(()=>kill(document));
+      mo.observe(document.body,{childList:true,subtree:true});
+    })();
+
+    /* Timer regressivo 10:00 + aviso ao sair/atualizar */
     (function(){
       let total = 10*60; // 10 minutos
       const el = document.getElementById('countdown');
@@ -310,7 +351,6 @@
         if (wrap){
           wrap.innerHTML = `<span class="pill danger">Oferta expirada</span> <span class="tiny">(${reason})</span>`;
         }
-        // desabilitar CTAs
         document.querySelectorAll('button[data-greenn-upsell]').forEach(b=>{
           b.setAttribute('disabled','true'); b.style.opacity='.5'; b.removeAttribute('onclick');
         });
@@ -321,23 +361,8 @@
         if (el) el.textContent = format(total);
       },1000);
 
-      document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ expire('aba oculta/fechada'); } });
+      // Não expiro mais ao ocultar a aba (evita comportamento “pulo”)
       window.addEventListener('beforeunload', (e)=>{ e.preventDefault(); e.returnValue=''; });
-    })();
-
-    /* Carrossel de depoimentos: auto-scroll */
-    (function(){
-      const rail = document.getElementById('proofRail');
-      if(!rail) return;
-      let idx = 0;
-      const scrollNext = () => {
-        const slides = rail.children;
-        if (!slides.length) return;
-        idx = (idx + 1) % slides.length;
-        slides[idx].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
-      };
-      const timer = setInterval(scrollNext, 2800);
-      rail.addEventListener('mouseenter', ()=> clearInterval(timer), {once:true});
     })();
   </script>
 
