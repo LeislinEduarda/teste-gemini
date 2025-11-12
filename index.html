@@ -91,38 +91,76 @@
     .gift-badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; font-size:.8rem; font-weight:600; color:#222; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); border-radius:999px; }
 
     /* CTA secundário flutuante opcional (desligado por padrão) */
+    .nowrap{ white-space: nowrap; }
+@media (max-width: 420px){
+  .topbar .label{ display:block; line-height:1.25; }
+}
+.main-alert {
+  background: #fff4f4;
+  border: 2px solid #ff5c5c;
+  border-radius: 14px;
+  padding: 18px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.alert-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex: 0 0 32px;
+}
+.alert-title {
+  font-size: clamp(20px, 4vw, 26px);
+  color: #7C1E28;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+.alert-sub {
+  font-size: 15px;
+  color: #333;
+  margin: 0;
+}
   </style>
 </head>
 <body>
 
-  <!-- TOP TIMER BAR -->
-  <div class="topbar" role="region" aria-label="Oferta temporária">
-    <div class="topbar-inner">
-      <div class="label">⚡ Oferta exclusiva desta página — não recarregue ou você pode perder.</div>
-      <div class="timer" id="timer">08:00</div>
+ <!-- TOP TIMER BAR -->
+<div class="topbar" role="region" aria-label="Oferta exclusiva desta página — não recarregue ou você pode perder.">
+  <div class="topbar-inner">
+    <div class="label">
+      ⚡ Oferta exclusiva desta página<span class="nowrap">não recarregue</span> ou você pode perder.
     </div>
-    <div class="progress"><i id="progressFill"></i></div>
+    <div class="timer" id="timer">08:00</div>
   </div>
+  <div class="progress"><i id="progressFill"></i></div>
+</div>
 
-  <main class="page" role="main">
+<main class="page" role="main">
 
     <!-- DOBRA 1 — Interrupção de fechamento + preço exclusivo + decisão imediata -->
-    <section class="card" aria-labelledby="upsell-h1">
-      <div class="hero">
-        <div class="warn" role="alert" aria-live="polite">
-          <span>⚠️</span>
-          <div>
-            <strong>Ainda não finalizei sua compra…</strong><br>
-            Você está prestes a sair sem ativar sua Equipe Não-Humana.
-          </div>
-        </div>
+<section class="card" aria-labelledby="upsell-h1">
+  <div class="hero">
 
-        <h1 id="upsell-h1" class="center">Ative sua Equipe Não-Humana agora</h1>
-        <p class="center muted">
-          Mais de 80% das pessoas que compram o guia também entram no Estúdio
-          porque lá os 10 funcionários fazem tudo com você. Sem o Estúdio, você vai precisar
-          fazer o trabalho sozinho.
+    <!-- ALERTA PRINCIPAL -->
+    <div class="warn main-alert" role="alert" aria-live="polite">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-text">
+        <h1 class="alert-title">Você ainda não finalizou sua compra!</h1>
+        <p class="alert-sub">
+          Esta é sua única chance de ativar o Estúdio com preço exclusivo desta página.
+          Se sair agora, a oferta desaparece.
         </p>
+      </div>
+    </div>
+
+    <!-- SUBTÍTULO (apoio) -->
+    <h2 id="upsell-h1" class="center">Ative sua Equipe Não-Humana agora</h2>
+    <p class="center muted">
+      Mais de 80% das pessoas que compram o guia também entram no Estúdio,
+      porque lá os 10 funcionários fazem tudo com você.  
+      Sem o Estúdio, você vai precisar fazer o trabalho sozinho.
+    </p>
 
         <!-- PREÇO EXCLUSIVO -->
         <div class="price center" aria-label="Preço exclusivo desta página">
