@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Upsell — Estúdio Infinito (Ainda não finalizei sua compra)</title>
-  <meta name="description" content="Ative sua Equipe Não-Humana agora e publique seu primeiro post em 58 minutos. Oferta exclusiva durante a compra." />
+  <title>Upsell — Estúdio Infinito (Oferta exclusiva por 8 minutos)</title>
+  <meta name="description" content="Ainda não finalizei sua compra. Ative sua Equipe Não-Humana agora com preço exclusivo desta página e publique seu primeiro post em 58 minutos." />
   <meta name="theme-color" content="#1D4D3A" />
 
   <style>
     :root{
       --bg:#ffffff; --text:#141414; --muted:#5e5e5e; --border:#eaeaea; --surface:#fafafa;
-      --wine:#7C1E28; --green:#1D4D3A; --pink:#F9C8D2; --cta:#FF3F4A; --cta-hover:#e83b45;
+      --wine:#7C1E28; --green:#1D4D3A; --pink:#F9C8D2; --cta:#38571A; --ctaBorder:#AA7942;
       --radius:14px; --shadow:0 10px 30px rgba(0,0,0,.08);
     }
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;}
-    .page{max-width:880px;margin:0 auto;padding:20px 18px 64px;}
+    .page{max-width:880px;margin:0 auto;padding:86px 18px 64px;} /* espaço pro timer fixo */
     h1,h2{letter-spacing:-.02em;margin:0 0 10px}
     h1{font-size:clamp(24px,4.8vw,36px)}
     h2{font-size:clamp(18px,3.6vw,24px); color:var(--green)}
@@ -22,25 +22,91 @@
     .muted{color:var(--muted)}
     .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
     .hero{display:grid;gap:12px;margin-top:8px}
-    .cta{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:10px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;
-         border-radius:12px;border:2px solid var(--cta);background:var(--cta);color:#fff;
-         font-weight:750;font-size:18px;cursor:pointer;min-width:240px;box-shadow:0 10px 30px rgba(255,63,74,.18);}
-    .btn:hover{background:var(--cta-hover);border-color:var(--cta-hover)}
-    .sub{font-size:14px;color:#222;text-align:center}
-    .warn{display:flex;align-items:flex-start;gap:10px;background:#FFF7F8;border:1px solid #FFD2D6;color:#8c000d;padding:12px;border-radius:12px}
-    .row{display:grid;gap:14px;margin-top:18px}
-    @media(min-width:760px){ .row{grid-template-columns:1.2fr .8fr} }
-    .proof{display:grid;gap:12px;margin-top:8px}
-    .quote{border-left:4px solid var(--green);padding:8px 12px;background:var(--surface);border-radius:10px}
-    .divider{height:1px;background:var(--border);margin:18px 0}
     .center{text-align:center}
     .tiny{font-size:12px;color:var(--muted)}
+    .divider{height:1px;background:var(--border);margin:18px 0}
+    .row{display:grid;gap:14px;margin-top:18px}
+    @media(min-width:760px){ .row{grid-template-columns:1.2fr .8fr} }
+    .quote{border-left:4px solid var(--green);padding:8px 12px;background:var(--surface);border-radius:10px}
+
+    /* TIMER TOP BAR */
+    .topbar{
+      position:fixed; top:0; left:0; right:0; z-index:9999; background:#0E3C2E; color:#fff;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+    }
+    .topbar-inner{max-width:980px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 14px}
+    .topbar .label{font-weight:750; letter-spacing:.02em}
+    .timer{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px}
+    .progress{height:4px; background:rgba(255,255,255,.25)}
+    .progress > i{display:block;height:4px;background:#F9C8D2;width:100%}
+
+    /* WARN */
+    .warn{display:flex;align-items:flex-start;gap:10px;background:#FFF7F8;border:1px solid #FFD2D6;color:#8c000d;padding:12px;border-radius:12px}
+
+    /* PREÇO */
+    .price{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:6px}
+    .price .from{color:#8a8a8a;text-decoration:line-through;font-weight:700}
+    .price .to{font-size:28px;font-weight:900;color:var(--wine)}
+    .price-badge{display:inline-flex;align-items:center;gap:6px;background:#FFF0F3;border:1px solid #ffd6dd;color:#7C1E28;border-radius:999px;padding:6px 12px;font-weight:750}
+
+    /* CTA WRAPPER */
+    .cta-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px}
+
+    /* Seções importadas (Stories / Bônus / Resumo) — estilização base do seu HTML */
+    .muted{color:#666}
+    .block{border:1px solid var(--border);border-radius:10px;background:#fff;padding:16px}
+    .checklist{list-style:none;padding-left:0;margin-left:0}
+    .checklist li{padding-left:28px;position:relative;margin:6px 0}
+    .checklist li::before{content:"✅";position:absolute;left:0;top:0}
+    .container{max-width: 860px; margin: 0 auto; padding: 0}
+    .section-tight{padding: 8px 0; background: var(--bg);}
+    .center{text-align:center}
+    .small{font-size:.92rem}
+    .h-serif{font-weight:750; letter-spacing:-.01em}
+    .stories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px}
+    .story{background:#fff;border:1px solid color-mix(in oklab, var(--green) 14%, #fff);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .story .bubble{width:84px;height:84px;border-radius:50%;margin-inline:auto;overflow:hidden;background:linear-gradient(135deg,#eee,#fff);box-shadow:0 0 0 3px var(--wine), 0 0 0 6px var(--green)}
+    .story .bubble img{width:100%;height:100%;object-fit:cover;display:block}
+    .story h5{margin:12px 0 2px 0;font-size:.98rem;color:var(--green)}
+    .story small{color:#666}
+    .story-btn{all:unset;display:block;width:100%;cursor:pointer}
+    dialog{ border:none; border-radius:14px; padding:0; width:min(92vw,680px); box-shadow:0 30px 80px rgba(0,0,0,.25); }
+    dialog::backdrop{background:rgba(0,0,0,.35)}
+    .modal{padding:18px; background:#fff; border-radius:14px}
+    .modal header{ display:flex; justify-content:space-between; align-items:center; gap:12px; border-bottom:1px solid var(--pink); padding-bottom:8px }
+    .modal .close{ background:transparent; border:1px solid transparent; color:var(--wine); font-weight:700; cursor:pointer; border-radius:10px; padding:6px 10px; }
+    .modal .close:focus{outline:2px solid var(--wine); outline-offset:2px}
+
+    .gifts{ display:grid; grid-template-columns:1fr; gap:18px; }
+    @media (min-width:640px){ .gifts{grid-template-columns:1fr 1fr} }
+    .gift-card{
+      display:flex; gap:16px; align-items:flex-start;
+      border:1px solid color-mix(in oklab, var(--border) 90%, #000);
+      border-radius:14px; background:#fff;
+      padding:18px; box-shadow:0 4px 18px rgba(0,0,0,.06);
+    }
+    .gift-icon{ flex:0 0 56px; height:56px; width:56px; display:grid; place-items:center; border:none; border-radius:12px; background: linear-gradient(180deg,#fff 0%, #f7f7f7 100%); font-size:24px; }
+    .gift-body h4{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:2px 0 6px 0; font-size:16px }
+    .gift-meta{color:#666; font-size:.92rem}
+    .gift-badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; font-size:.8rem; font-weight:600; color:#222; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); border-radius:999px; }
+
+    /* CTA secundário flutuante opcional (desligado por padrão) */
   </style>
 </head>
 <body>
+
+  <!-- TOP TIMER BAR -->
+  <div class="topbar" role="region" aria-label="Oferta temporária">
+    <div class="topbar-inner">
+      <div class="label">⚡ Oferta exclusiva desta página — não recarregue ou você pode perder.</div>
+      <div class="timer" id="timer">08:00</div>
+    </div>
+    <div class="progress"><i id="progressFill"></i></div>
+  </div>
+
   <main class="page" role="main">
-    <!-- DOBRA 1 — Interrupção de fechamento + decisão imediata -->
+
+    <!-- DOBRA 1 — Interrupção de fechamento + preço exclusivo + decisão imediata -->
     <section class="card" aria-labelledby="upsell-h1">
       <div class="hero">
         <div class="warn" role="alert" aria-live="polite">
@@ -51,63 +117,254 @@
           </div>
         </div>
 
-        <h1 id="upsell-h1">Ative sua Equipe Não-Humana agora</h1>
-        <p class="muted">
+        <h1 id="upsell-h1" class="center">Ative sua Equipe Não-Humana agora</h1>
+        <p class="center muted">
           Mais de 80% das pessoas que compram o guia também entram no Estúdio
           porque lá os 10 funcionários fazem tudo com você. Sem o Estúdio, você vai precisar
           fazer o trabalho sozinho.
         </p>
 
-        <div class="cta">
-          <!-- BOTÃO GREENN (mantido exatamente como enviado) -->
-          <button data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" class="btn">
-            Compre Ja!
-          </button>
-          <div class="sub">Acesso imediato — publique seu primeiro post em 58 minutos.</div>
-          <div class="tiny">⚡ Esta oferta só aparece agora, durante sua compra.</div>
+        <!-- PREÇO EXCLUSIVO -->
+        <div class="price center" aria-label="Preço exclusivo desta página">
+          <span class="price-badge">Exclusivo desta página (expira em <span id="timerInline">8:00</span>)</span>
+          <span class="from">de R$ 388</span>
+          <span class="to">por R$ 188</span>
+        </div>
+        <p class="tiny center">Não recarregue a página — ao sair, esta condição pode não aparecer novamente.</p>
+
+        <!-- CTA GREENN (como enviado) -->
+        <div class="cta-wrap" aria-live="polite" id="ctaTop">
+          <div data-v-10de2152="" class="center-btn-preview">
+            <button data-v-10de2152="" data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" type="button" class="btn btn-preview-anime btn-secondary" style="cursor: pointer; width: 300px; height: 60px; font-size: 20px; color: rgb(255, 255, 255); background: rgb(56, 87, 26); border: 2px solid rgb(170, 121, 66); border-radius: 12px; font-weight: bold;">ENTRAR NO ESTÚDIO (acesso imediato)</button>
+          </div>
+          <div data-v-10de2152="" class="center-btn-preview">
+            <!-- vazio, mantido pela Greenn -->
+          </div>
+          <div data-v-10de2152="" class="center-btn-preview">
+            <a data-v-10de2152="" id="not-buy-link" href="" target="_blank" class="mt-2 pointer" style="display: flex; font-family: Montserrat; justify-content: center; width: 300px; cursor: pointer; font-size: 10px; color: rgb(0, 0, 0); font-style: italic;">PREFIRO FICAR ATRASADO</a>
+          </div>
+          <div class="tiny">Acesso imediato — publique seu primeiro post em 58 minutos.</div>
         </div>
       </div>
     </section>
 
-    <!-- DOBRA 2 — Prova rápida + reforço de perda -->
-    <section class="card" style="margin-top:14px" aria-labelledby="proof-h2">
-      <h2 id="proof-h2" class="center">O que muda quando o Estúdio entra no jogo</h2>
+    <!-- DOBRA 2 — Stories + Bônus + Resumo + CTA final -->
+    <section class="card" style="margin-top:14px" aria-labelledby="conheca-e-bonus">
+      <h2 id="conheca-e-bonus" class="center">O que muda quando o Estúdio entra no jogo</h2>
 
-      <div class="proof">
-        <div class="row">
-          <div>
-            <p><strong>Velocidade real:</strong> de ideia a post no ar em uma tarde — sem começar do zero.</p>
-            <p><strong>Assistência focada:</strong> 10 funcionários prontos para ideias, ganchos, roteiros, carrosséis, stories e legendas.</p>
-            <p><strong>Consistência sem esforço:</strong> você aprende criando; o sistema puxa você para a ação.</p>
-          </div>
-          <div class="quote">
-            <em>“Eu achava que IA ia tirar minha voz, mas agora ela multiplica meu alcance.”</em><br>
-            — Aluna do Estúdio
-          </div>
+      <!-- Stories — Equipe Não-Humana -->
+      <section class="section-tight" id="equipe" style="margin-top:6px">
+        <div class="container">
+          <h3 class="h-serif center" style="margin:0 0 4px">CONHEÇA A SUA EQUIPE NÃO HUMANA</h3>
+          <p class="center muted small" style="margin:0 0 10px">Toque em um perfil para ver o trabalho de cada “funcionário”.</p>
+          <div class="stories-grid" id="storiesGrid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- BÔNUS -->
+      <section aria-labelledby="bonus">
+        <h3 id="bonus" class="center" style="margin:0 0 8px">🎁 BÔNUS QUE VOCÊ RECEBE IMEDIATAMENTE</h3>
+        <div class="gifts">
+          <article class="gift-card gift-1">
+            <div class="gift-icon" aria-hidden="true">🎁</div>
+            <div class="gift-body">
+              <h4>💛 BÔNUS #1: Post que Paga<span class="gift-badge">Dinheiro de Volta</span></h4>
+              <p>Cada post criado com a Equipe Não Humana e publicado rende <strong>+1 dia pago de assinatura</strong> no próximo ano.</p>
+              <p class="gift-meta">Seu conteúdo literalmente paga sua renovação.</p>
+            </div>
+          </article>
+          <article class="gift-card gift-2">
+            <div class="gift-icon" aria-hidden="true">🏆</div>
+            <div class="gift-body">
+              <h4>BÔNUS #2: Campeonato Infinito<span class="gift-badge">Recompensa</span></h4>
+              <p>Publique, some pontos, suba no ranking e ganhe prêmios reais enviados pra sua casa.</p>
+              <p class="gift-meta">Gamificação para acelerar consistência.</p>
+            </div>
+          </article>
+          <article class="gift-card gift-3">
+            <div class="gift-icon" aria-hidden="true">💬</div>
+            <div class="gift-body">
+              <h4>BÔNUS #3: Comunidade Sobre Humano<span class="gift-badge">Único</span></h4>
+              <p>Feedbacks práticos e chat de ajuda em tempo real. Ninguém fica perdido; sempre tem alguém pra destravar seu post.</p>
+              <p class="gift-meta">A parte humana do Estúdio.</p>
+            </div>
+          </article>
+          <article class="gift-card gift-4">
+            <div class="gift-icon" aria-hidden="true">🎨</div>
+            <div class="gift-body">
+              <h4>BÔNUS #4: Design com ChatGPT (sem abrir o Canva)<span class="gift-badge">Presente</span></h4>
+              <p>Crie todos os seus designs conversando em 10min ⏳</p>
+            </div>
+          </article>
+          <article class="gift-card gift-5">
+            <div class="gift-icon" aria-hidden="true">🧠</div>
+            <div class="gift-body">
+              <h4>BÔNUS #5: Gêmea Digital no celular (fotos com IA)<span class="gift-badge">Incalculável</span></h4>
+              <p>Fotos com IA sem aparecer. Passo a passo direto no celular. Pronto em 20 min ⏳</p>
+            </div>
+          </article>
+          <article class="gift-card gift-6">
+            <div class="gift-icon" aria-hidden="true">🎥</div>
+            <div class="gift-body">
+              <h4>BÔNUS #6: Como gravo 7 Reels em 30 min <span class="gift-badge">Bastidor</span></h4>
+              <p>Meu fluxo real de gravação enxuto, replicável no mesmo dia.</p>
+            </div>
+          </article>
+          <article class="gift-card gift-7">
+            <div class="gift-icon" aria-hidden="true">⚡</div>
+            <div class="gift-body">
+              <h4>BÔNUS #7: Ressuscite seu perfil em 15 dias<span class="gift-badge">Desbloqueado</span></h4>
+              <p>Plano de recuperação de perfis na UTI usando a Equipe Não Humana.</p>
+            </div>
+          </article>
+          <article class="gift-card gift-8">
+            <div class="gift-icon" aria-hidden="true">🛠️</div>
+            <div class="gift-body">
+              <h4>BÔNUS #8: Crie seu próprio Funcionário Não Humano <span class="gift-badge">Exclusivo</span></h4>
+              <p>Aprenda a clonar seu conhecimento em um GPT que trabalha pra você em 20 minutos.</p>
+            </div>
+          </article>
+          <article class="gift-card gift-9">
+            <div class="gift-icon" aria-hidden="true">🎙️</div>
+            <div class="gift-body">
+              <h4>BÔNUS #9: Live Estúdio Aberto <span class="gift-badge">Impagável</span></h4>
+              <p>Se você viralizar criando com a Equipe Não Humana, vem comigo pra uma live no meu perfil pra mostrar como fez.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- RESUMO -->
+      <section aria-labelledby="resumo">
+        <h3 id="resumo" class="center" style="margin:0 0 8px">🧶 RESUMINDO O ESTÚDIO INFINITO</h3>
+        <div class="block">
+          <ul class="checklist">
+            <li><strong>10 Funcionários Não Humanos</strong> — ideias, ganchos, roteiros, carrosséis, stories e legendas sem começar do zero.</li>
+            <li><strong>Minicursos rápidos</strong> — aprender criando (sem teoria, sem enrolação).</li>
+            <li><strong>Garantia do primeiro post</strong> — 24h ou devolução 100%.</li>
+            <li><strong>Post que Paga</strong> — cada post publicado paga +1 dia da sua assinatura.</li>
+            <li><strong>Comunidade Sobre Humano</strong> — feedback, ajuda e criação conjunta.</li>
+          </ul>
         </div>
 
-        <div class="divider"></div>
-
-        <div class="center">
-          <p>👉 Clique abaixo e finalize com o Estúdio incluído (1-click).</p>
-          <!-- SEGUNDO BOTÃO (repete o mesmo para manter consistência) -->
-          <button data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" class="btn">
-            Compre Ja!
-          </button>
+        <div class="center" style="margin-top:10px" id="ctaBottom">
+          <!-- CTA repetido (igual ao de cima) -->
+          <div data-v-10de2152="" class="center-btn-preview">
+            <button data-v-10de2152="" data-greenn-one-click="false" data-greenn-upsell="5029" data-greenn-split="1" data-loading="false" onclick="startLoading(this)" type="button" class="btn btn-preview-anime btn-secondary" style="cursor: pointer; width: 300px; height: 60px; font-size: 20px; color: rgb(255, 255, 255); background: rgb(56, 87, 26); border: 2px solid rgb(170, 121, 66); border-radius: 12px; font-weight: bold;">ENTRAR NO ESTÚDIO (acesso imediato)</button>
+          </div>
           <div class="tiny" style="margin-top:6px;">Oferta exclusiva desta etapa. Se você fechar esta página, ela pode não aparecer novamente.</div>
         </div>
-      </div>
+      </section>
     </section>
-
-    <noscript>
-      <p class="center" style="margin-top:14px">
-        Para concluir, ative o JavaScript. Se preferir, acesse o checkout direto: <a href="https://payfast.greenn.com.br/SEU-LINK">clique aqui</a>.
-      </p>
-    </noscript>
   </main>
 
-  <!-- MODAL / SCRIPT GREENN (mantido exatamente como enviado) -->
+  <!-- SCRIPTS -->
   <script>
+    // ===== TIMER 8 MIN =====
+    (function(){
+      const DURATION = 8 * 60; // 8 minutes in seconds
+      let remaining = DURATION;
+      const timerEl = document.getElementById('timer');
+      const timerInline = document.getElementById('timerInline');
+      const progressFill = document.getElementById('progressFill');
+
+      function format(s){
+        const m = Math.floor(s/60).toString().padStart(2,'0');
+        const ss = (s%60).toString().padStart(2,'0');
+        return `${m}:${ss}`;
+      }
+      function tick(){
+        remaining--;
+        if (remaining < 0){ remaining = 0; }
+        const pct = (remaining / DURATION) * 100;
+        if (timerEl) timerEl.textContent = format(remaining);
+        if (timerInline) timerInline.textContent = format(remaining);
+        if (progressFill) progressFill.style.width = pct + '%';
+
+        if (remaining === 0){
+          // Desabilita CTAs do upsell
+          document.querySelectorAll('[data-greenn-upsell]').forEach(btn=>{
+            btn.setAttribute('disabled','true');
+            btn.style.filter = 'grayscale(1)';
+            btn.style.cursor = 'not-allowed';
+            btn.textContent = 'Oferta encerrada';
+          });
+          clearInterval(intv);
+        }
+      }
+      if (timerEl){ timerEl.textContent = format(remaining); }
+      if (timerInline){ timerInline.textContent = format(remaining); }
+      if (progressFill){ progressFill.style.width = '100%'; }
+      const intv = setInterval(tick, 1000);
+    })();
+
+    // ===== STORIES (Equipe Não-Humana) =====
+    const ENH = [
+      { nome:'João dos Ganchos',        func:'Primeiras frases que fazem a pessoa parar.',                                      foto:'7.webp'  },
+      { nome:'Bia do Público',          func:'Descobre exatamente onde dói no seu público.',                                   foto:'10.webp' },
+      { nome:'Leonardo da Viralização', func:'Avalia seu post sem dó com uma nota de 0 a 10 para viralizar sem limite.',       foto:'1.webp'  },
+      { nome:'Laura das Legendas',      func:'Escreve legendas que fazem o seguidor ler até o fim.',                           foto:'5.webp'  },
+      { nome:'Bruno do Branding',       func:'Um posicionamento que gruda na mente das pessoas.',                               foto:'2.webp'  },
+      { nome:'José dos Stories',        func:'Transforma seus stories em sequências que vendem.',                               foto:'9.webp'  },
+      { nome:'Larissa dos Roteiros',    func:'Escreve roteiros de vídeo que retêm atenção.',                                    foto:'6.webp'  },
+      { nome:'Maria das Ideias',        func:'Ideias que você nunca pensaria.',                                                 foto:'3.webp'  },
+      { nome:'Carlos dos Carrosséis',   func:'Cria carrosséis prontos pra deslizar até o último slide.',                        foto:'8.webp'  },
+      { nome:'Dudu da Bio',             func:'Ajusta sua bio pra atrair os seguidores certos.',                                 foto:'4.webp'  }
+    ];
+
+    (function mountENH(){
+      const grid = document.getElementById('storiesGrid');
+      if(!grid) return;
+      grid.innerHTML = '';
+      ENH.forEach(p=>{
+        const card = document.createElement('div');
+        card.className='story';
+        card.innerHTML = `
+          <button class="story-btn" aria-label="Abrir perfil de ${p.nome}">
+            <div class="bubble" aria-hidden="false">
+              <picture>
+                <source srcset="${p.foto}" type="image/webp" />
+                <img src="${p.foto}" alt="${p.nome}" loading="lazy" decoding="async" width="84" height="84" />
+              </picture>
+            </div>
+            <h5>${p.nome}</h5>
+            <small>${p.func}</small>
+          </button>
+        `;
+        card.querySelector('.story-btn').addEventListener('click', ()=> openENHModal(p));
+        grid.appendChild(card);
+      });
+
+      function openENHModal(p){
+        if (document.querySelector('dialog[open]')) return;
+        const dlg = document.createElement('dialog');
+        dlg.setAttribute('aria-label', `Perfil de ${p.nome}`);
+        dlg.innerHTML = `
+          <div class="modal">
+            <header>
+              <h3 class="h-serif" style="margin:0">${p.nome}</h3>
+              <button class="close" aria-label="Fechar">fechar ✕</button>
+            </header>
+            <div style="padding-top:10px">
+              <p><strong>Função:</strong> ${p.func}</p>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(dlg);
+        const closeBtn = dlg.querySelector('.close');
+        closeBtn.addEventListener('click', ()=> dlg.close());
+        dlg.addEventListener('close', ()=> dlg.remove());
+        dlg.addEventListener('keydown', (e)=> { if(e.key==='Escape') dlg.close(); });
+        dlg.showModal();
+        closeBtn.focus();
+      }
+    })();
+
+    // ===== GRENN SCRIPT + LOADING (como enviado por você) =====
     window.startLoading = function(button) {
       const originalHTML = button.innerHTML;
       button.setAttribute('data-loading', 'true');
