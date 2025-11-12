@@ -7,6 +7,11 @@
   <meta name="theme-color" content="#1D4D3A" />
   <meta name="description" content="Não atualize a página. Oferta exclusiva enquanto esta aba estiver aberta: Estúdio Infinito de R$388 por R$188. Publique seu primeiro post em 58 minutos usando a Equipe Não-Humana." />
 
+  <!-- Fonte (para o link de recusa e coerência visual) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#fff; --text:#121212; --muted:#5f5f5f; --border:#e9e9e9; --surface:#fafafa;
@@ -69,14 +74,12 @@
     .slide{flex:0 0 86%;max-width:86%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
     @media (min-width:760px){ .slide{flex:0 0 48%;max-width:48%} }
 
-    /* Funcionários — “mesmo formato da sua página” */
+    /* Funcionários — mesmo formato, com fallback do color-mix */
     .stories{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
     @media (max-width:720px){ .stories{grid-template-columns:repeat(3,1fr)} }
     @media (max-width:420px){ .stories{grid-template-columns:repeat(2,1fr)} }
-    .story{
-      background:#fff;border:1px solid color-mix(in oklab, var(--green) 14%, #fff);
-      border-radius:14px;padding:12px;text-align:center;box-shadow:var(--shadow)
-    }
+    .story{ background:#fff; border:1px solid #E7E7E7; border-radius:14px; padding:12px; text-align:center; box-shadow:var(--shadow) }
+    .story{ border:1px solid color-mix(in oklab, var(--green) 14%, #fff); }
     .bubble{
       width:min(92px,30vw);height:min(92px,30vw);margin:0 auto 8px; border-radius:50%; overflow:hidden;
       background:linear-gradient(135deg,#eee,#fff);
@@ -100,6 +103,11 @@
     .cta-grid{display:grid;gap:10px;grid-template-columns:1fr}
     @media(min-width:560px){ .cta-grid{grid-template-columns:1fr 1fr} }
 
+    /* Reduzir custos em dispositivos com menos performance */
+    @media (prefers-reduced-motion: reduce){
+      .card, .story, .slide{ box-shadow:none; }
+    }
+
     /* Hacks visuais para esconder “Oferta inspirada” caso apareça por script externo */
     .inspired-offer, #inspired-offer{display:none !important}
   </style>
@@ -113,7 +121,7 @@
       <div class="banner-strong">⚠️ Ainda não finalizou sua compra — não atualize a página.</div>
 
       <!-- 2) Segundo maior destaque -->
-      <div class="banner-secondary">Você está prestes a sair <u>sem ativar sua Equipe Não-Humana com 50% de desconto</u>.</div>
+      <div class="banner-secondary"><strong>Você está prestes a sair</strong> <span style="text-decoration:underline">sem ativar sua Equipe Não-Humana com 50% de desconto</span>.</div>
 
       <h1 id="h1" class="center">Ative o Estúdio agora</h1>
       <!-- Preço homogêneo (padrão único) -->
@@ -124,17 +132,16 @@
       </div>
 
       <!-- Timer + frase “58 minutos” -->
-      <div class="timer" aria-live="polite" id="timerWrap">
+      <div class="timer" aria-live="off" id="timerWrap">
         <span class="pill">Tempo restante: <span id="countdown">10:00</span></span>
         <span class="pill danger">Se fechar ou atualizar esta aba, a oferta expira</span>
       </div>
       <p class="center muted" style="margin-top:2px">Publique seu primeiro post em 58 minutos usando a Equipe Não-Humana.</p>
 
-      <!-- Botões: compra + recusa (com tamanho maior e nowrap para não quebrar o “(acesso imediato)”) -->
+      <!-- Botões: compra + recusa (largura fluida e seguros) -->
       <div class="cta">
-        <div data-v-10de2152="" class="center-btn-preview">
+        <div class="center-btn-preview">
           <button
-            data-v-10de2152=""
             data-greenn-one-click="false"
             data-greenn-upsell="5029"
             data-greenn-split="1"
@@ -142,29 +149,28 @@
             onclick="startLoading(this)"
             type="button"
             class="btn btn-preview-anime btn-secondary"
-            style="cursor:pointer;width:360px;height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
+            style="cursor:pointer;width:min(360px,100%);height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
             <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
           </button>
         </div>
 
-        <div data-v-10de2152="" class="center-btn-preview">
+        <div class="center-btn-preview">
           <a
-            data-v-10de2152=""
             id="not-buy-link"
             href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
-            target="_blank"
+            target="_blank" rel="noopener noreferrer"
             class="mt-2 pointer"
-            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:360px;cursor:pointer;font-size:11px;color:#000;font-style:italic;text-decoration:underline;">
+            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:min(360px,100%);cursor:pointer;font-size:11px;color:#000;font-style:italic;text-decoration:underline;">
             PREFIRO FICAR ATRASADO
           </a>
         </div>
       </div>
 
-      <!-- Quota “10 por dia / 8 já foram” -->
+      <!-- Quota “10 por dia / 8 já foram” (dinâmica) -->
       <div class="quota" aria-live="polite">
-        <div class="qmeta"><span>Oferta liberada apenas para 10 pessoas por dia</span><span><strong>8 já foram compradas</strong></span></div>
-        <div class="qbar" aria-label="Progresso de compras do dia (8 de 10)">
-          <div class="qfill" id="qfill" style="width:80%"></div>
+        <div class="qmeta"><span>Oferta liberada apenas para 10 pessoas por dia</span><span><strong><span id="soldNow">8</span> já foram compradas</strong></span></div>
+        <div class="qbar" aria-label="Progresso de compras do dia" data-total="10" data-sold="8">
+          <div class="qfill" id="qfill"></div>
         </div>
       </div>
     </section>
@@ -203,43 +209,43 @@
         <h2 id="team" class="center">Quem trabalha com você lá dentro</h2>
         <div class="stories" style="margin-top:8px">
           <article class="story">
-            <div class="bubble"><img src="1.webp" alt="Leonardo da Viralização" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="1.webp" alt="Leonardo da Viralização" width="92" height="92"></div>
             <h5>Leonardo da Viralização</h5><small>Nota de viralização</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="2.webp" alt="Bruno do Branding" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="2.webp" alt="Bruno do Branding" width="92" height="92"></div>
             <h5>Bruno do Branding</h5><small>Posicionamento que gruda</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="3.webp" alt="Maria das Ideias" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="3.webp" alt="Maria das Ideias" width="92" height="92"></div>
             <h5>Maria das Ideias</h5><small>Ideias inéditas</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="4.webp" alt="Dudu da Bio" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="4.webp" alt="Dudu da Bio" width="92" height="92"></div>
             <h5>Dudu da Bio</h5><small>Bio que atrai</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="5.webp" alt="Laura das Legendas" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="5.webp" alt="Laura das Legendas" width="92" height="92"></div>
             <h5>Laura das Legendas</h5><small>Texto que prende</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="6.webp" alt="Larissa dos Roteiros" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="6.webp" alt="Larissa dos Roteiros" width="92" height="92"></div>
             <h5>Larissa dos Roteiros</h5><small>Vídeos que retêm</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="7.webp" alt="João dos Ganchos" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="7.webp" alt="João dos Ganchos" width="92" height="92"></div>
             <h5>João dos Ganchos</h5><small>Primeiras frases</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="8.webp" alt="Carlos dos Carrosséis" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="8.webp" alt="Carlos dos Carrosséis" width="92" height="92"></div>
             <h5>Carlos dos Carrosséis</h5><small>Slides até o fim</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="9.webp" alt="José dos Stories" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="9.webp" alt="José dos Stories" width="92" height="92"></div>
             <h5>José dos Stories</h5><small>Sequências que vendem</small>
           </article>
           <article class="story">
-            <div class="bubble"><img src="10.webp" alt="Bia do Público" width="92" height="92"></div>
+            <div class="bubble"><img loading="lazy" src="10.webp" alt="Bia do Público" width="92" height="92"></div>
             <h5>Bia do Público</h5><small>Dor e desejo certos</small>
           </article>
         </div>
@@ -252,7 +258,7 @@
         <h2 id="resumo" class="center">Resumo do que você recebe agora por R$188</h2>
         <ul class="check" style="margin-top:6px">
           <li><strong>Estúdio Infinito</strong> (de R$388 por R$188) — exclusivo nesta página.</li>
-          <li><strong>10 Funcionários Não-Humanos</strong> para ideias, ganchos, roteiros, carrosséis, stories, legendas, bio, branding e nota de viralização.</li>
+          <li><strong>10 Funcionários Não-Humanos</strong> para ideias, primeiras frases, roteiros, carrosséis, stories, legendas, bio, branding e nota de viralização.</li>
           <li><strong>Minicursos rápidos</strong> (menos de 30 min) — aprender criando, sem teoria.</li>
           <li><strong>Garantia do Primeiro Post</strong> — post no ar em até 24h ou devolução 100%.</li>
         </ul>
@@ -264,7 +270,7 @@
         <div class="bonus" style="margin-top:6px">
           <div class="bonus-item"><div class="bonus-emoji">💛</div><div><strong>Post que Paga</strong><br>Cada post publicado rende +1 dia de acesso na próxima renovação.</div></div>
           <div class="bonus-item"><div class="bonus-emoji">🏆</div><div><strong>Campeonato Infinito</strong><br>Ranking, pontos e prêmios para acelerar sua consistência.</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">💬</div><div><strong>Comunidade Sobre-Humano</strong><br>Feedback prático e chat de ajuda em tempo real.</div></div>
+          <div class="bonus-item"><div class="bonus-emoji">💬</div><div><strong>Comunidade Sobre Humano</strong><br>Feedback prático e chat de ajuda em tempo real.</div></div>
           <div class="bonus-item"><div class="bonus-emoji">🎨</div><div><strong>Design com ChatGPT</strong><br>Crie seus designs conversando (sem abrir o Canva).</div></div>
           <div class="bonus-item"><div class="bonus-emoji">🧠</div><div><strong>Gêmea Digital</strong><br>Fotos com IA pelo celular para postar sem aparecer.</div></div>
           <div class="bonus-item"><div class="bonus-emoji">🎥</div><div><strong>7 Reels em 30 min</strong><br>Fluxo de gravação enxuto para publicar hoje.</div></div>
@@ -276,14 +282,13 @@
       <!-- CTAs finais -->
       <div class="cta-grid" style="margin-top:12px">
         <div class="center">
-          <div class="price" aria-label="Preço">
+          <div class="price" aria-label="Preço" style="opacity:.92">
             <span class="from">De R$388</span>
             <span class="to">por R$188</span>
             <span class="badge">exclusivo desta etapa</span>
           </div>
-          <div data-v-10de2152="" class="center-btn-preview">
+          <div class="center-btn-preview">
             <button
-              data-v-10de2152=""
               data-greenn-one-click="false"
               data-greenn-upsell="5029"
               data-greenn-split="1"
@@ -291,7 +296,7 @@
               onclick="startLoading(this)"
               type="button"
               class="btn btn-preview-anime btn-secondary"
-              style="cursor:pointer;width:360px;height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
+              style="cursor:pointer;width:min(360px,100%);height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
               <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
             </button>
           </div>
@@ -299,10 +304,9 @@
 
         <div class="center" style="display:flex;flex-direction:column;justify-content:center">
           <a
-            data-v-10de2152=""
             id="not-buy-link-bottom"
             href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
-            target="_blank"
+            target="_blank" rel="noopener noreferrer"
             class="mt-2 pointer"
             style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:100%;cursor:pointer;font-size:12px;color:#000;font-style:italic;text-decoration:underline;">
             PREFIRO FICAR ATRASADO
@@ -315,7 +319,7 @@
     <noscript>
       <p class="center" style="margin-top:14px">
         Ative o JavaScript para concluir com 1-click. Se preferir, acesse o checkout direto:
-        <a href="https://payfast.greenn.com.br/SEU-LINK">clique aqui</a>.
+        <a href="https://payfast.greenn.com.br/SEU-LINK" rel="nofollow">clique aqui</a>.
       </p>
     </noscript>
   </main>
@@ -337,7 +341,20 @@
       mo.observe(document.body,{childList:true,subtree:true});
     })();
 
-    /* Timer regressivo 10:00 + aviso ao sair/atualizar */
+    /* Barra dinâmica “10 por dia / X já foram” */
+    (function(){
+      const bar = document.querySelector('.qbar');
+      if(!bar) return;
+      const total = +bar.dataset.total || 10;
+      const sold  = +bar.dataset.sold  || 8;
+      const pct = Math.min(100,(sold/total)*100);
+      const fill = document.getElementById('qfill');
+      if(fill) fill.style.width = pct + '%';
+      const soldNow = document.getElementById('soldNow');
+      if(soldNow) soldNow.textContent = sold;
+    })();
+
+    /* Timer regressivo 10:00 (sem aria-live contínuo) + aviso ao sair/atualizar apenas se não aceitou */
     (function(){
       let total = 10*60; // 10 minutos
       const el = document.getElementById('countdown');
@@ -360,15 +377,15 @@
         if (total<=0){ clearInterval(iv); expire('tempo esgotado'); return; }
         if (el) el.textContent = format(total);
       },1000);
-
-      // Não expiro mais ao ocultar a aba (evita comportamento “pulo”)
-      window.addEventListener('beforeunload', (e)=>{ e.preventDefault(); e.returnValue=''; });
     })();
   </script>
 
-  <!-- ====== Modal/Loader + Script do upsell Greenn (EXATAMENTE como enviado) ====== -->
+  <!-- ====== Modal/Loader + Greenn (com beforeunload condicionado) ====== -->
   <script>
+    let accepted = false; // só bloqueia saída se ainda não clicou no CTA
+
     window.startLoading = function(button) {
+      accepted = true; // marcou que a pessoa aceitou/foi pro upsell
       const originalHTML = button.innerHTML;
       button.setAttribute('data-loading', 'true');
       button.innerHTML = ` 
@@ -383,6 +400,12 @@
         button.innerHTML = originalHTML;
       }, 3000);
     };
+
+    // alerta de saída somente se não clicou aceitar
+    window.addEventListener('beforeunload', (e)=>{
+      if (!accepted) { e.preventDefault(); e.returnValue=''; }
+    });
+
     (function (w, d, s, t) { 
       if (w._greennUp) return; 
       w._greennUp = t; 
