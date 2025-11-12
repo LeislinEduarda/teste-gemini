@@ -18,6 +18,8 @@
       --gold:#AA7942;
       --soft-red:#fff4f4;
       --hard-red:#ff5c5c;
+      --badge-bg:#FFF7E8;
+      --badge-br:#EED9BD;
     }
 
     /* ========= Base ========= */
@@ -73,29 +75,50 @@
 
     /* Headline + frase compacta */
     .headline{margin:8px 0 2px 0; text-align:center; color:var(--green); font-size:20px; font-weight:800}
-    .pitch{margin:6px auto 10px; text-align:center; max-width:520px; color:var(--muted); font-size:15px}
+    .pitch{margin:6px auto 18px; text-align:center; max-width:520px; color:var(--muted); font-size:15px}
 
     /* Preço (DE → POR) */
-    .price{display:grid; place-items:center; gap:2px; margin:10px 0 8px}
+    .price{display:grid; place-items:center; gap:2px; margin:10px 0 4px}
     .price .from{color:#9c9c9c; text-decoration:line-through; font-size:18px}
     .price .to{color:var(--wine); font-weight:900; font-size:clamp(28px,6vw,40px); line-height:1.1}
 
-    /* CTA Greenn */
+    /* CTA Greenn (duas linhas) */
     .center-btn-preview{display:flex; justify-content:center}
     .btn-secondary{
-      cursor:pointer; width:300px; height:60px;
-      font-size:20px; color:#fff; background:var(--green);
-      border:2px solid var(--gold); border-radius:12px; font-weight:bold;
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      cursor:pointer; width:320px; height:76px;
+      color:#fff; background:var(--green);
+      border:2px solid var(--gold); border-radius:12px; font-weight:800;
+      display:flex; align-items:center; justify-content:center; flex-direction:column;
       transition:transform .06s ease, box-shadow .12s ease;
       box-shadow:0 10px 30px rgba(29,77,58,.16);
+      text-align:center;
     }
+    .btn-secondary .btn-title{font-size:22px; line-height:1.05; letter-spacing:.2px}
+    .btn-secondary .btn-sub{font-size:12px; opacity:.9; margin-top:2px}
     .btn-secondary[data-loading="true"]{opacity:.9}
     .btn-secondary:active{transform:translateY(1px)}
-    .cta-sub{margin:8px 0 0; text-align:center; font-size:11px; color:#000; font-style:italic}
+
+    /* Badge "Prefiro ficar atrasado" */
+    .cta-badge{
+      display:inline-block;
+      margin:12px auto 0;
+      padding:8px 14px;
+      background:var(--badge-bg);
+      border:1px solid var(--badge-br);
+      border-radius:999px;
+      text-transform:uppercase;
+      font-size:11px; font-weight:800;
+      color:#6b4b2a;
+      letter-spacing:.6px;
+    }
+    .cta-wrap{display:flex; justify-content:center}
 
     /* Texto minúsculo */
-    .tiny{font-size:12px; color:#666; text-align:center; margin-top:8px; font-style:italic}
+    .tiny{font-size:12px; color:#666; text-align:center; margin-top:10px; font-style:italic}
+    
+    /* Espaço maior entre preço e CTA */
+    .space-cta{margin-top:18px}
+    @media(min-width:480px){ .space-cta{margin-top:22px} }
   </style>
 </head>
 <body>
@@ -129,7 +152,10 @@
         <div class="to">por R$ 188</div>
       </div>
 
-      <!-- CTA (Greenn) -->
+      <!-- Espaço maior antes do CTA -->
+      <div class="space-cta"></div>
+
+      <!-- CTA (Greenn) — duas linhas -->
       <div class="center-btn-preview">
         <button
           data-greenn-one-click="false"
@@ -138,13 +164,16 @@
           data-loading="false"
           onclick="startLoading(this)"
           type="button"
-          class="btn btn-preview-anime btn-secondary"
-          style="width:300px; height:60px;">
-          ENTRAR NO ESTÚDIO (acesso imediato)
+          class="btn btn-preview-anime btn-secondary">
+          <span class="btn-title">ENTRAR NO ESTÚDIO</span>
+          <span class="btn-sub">(acesso imediato)</span>
         </button>
       </div>
 
-      <a id="not-buy-link" href="#" target="_blank" class="cta-sub">PREFIRO FICAR ATRASADO</a>
+      <!-- Badge centralizada -->
+      <div class="cta-wrap">
+        <a id="not-buy-link" href="#" target="_blank" class="cta-badge">Prefiro ficar atrasado</a>
+      </div>
 
       <p class="tiny">Não recarregue a página — ao sair, esta condição pode não aparecer novamente.</p>
     </section>
@@ -163,7 +192,7 @@
             <animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/>
           </path>
         </svg>
-        <span style="margin-left:6px">processando…</span>`;
+        <span style="margin-top:6px; font-size:12px;">processando…</span>`;
       setTimeout(() => {
         button.setAttribute('data-loading', 'false');
         button.innerHTML = originalHTML;
@@ -196,7 +225,7 @@
           bar.classList.add('warn');
         }
 
-        // Batimento visual mais forte nos últimos 30s
+        // Pulso mais forte nos últimos 30s
         if(time <= 30) el.classList.add('timer-pulse');
 
         if(time > 0){
