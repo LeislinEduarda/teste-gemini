@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#1D4D3A" />
   <meta name="description" content="Não atualize a página. Oferta exclusiva enquanto esta aba estiver aberta: Estúdio Infinito de R$388 por R$188. Publique seu primeiro post em 58 minutos usando a Equipe Não-Humana." />
 
-  <!-- Fonte (para o link de recusa e coerência visual) -->
+  <!-- Fonte apenas onde necessário (link de recusa) com swap para evitar 'pulo' -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -19,71 +19,106 @@
       --radius:14px; --shadow:0 12px 34px rgba(0,0,0,.08);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;font-size:16px;line-height:1.55}
+    html,body{
+      margin:0;padding:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;font-size:16px;line-height:1.55;
+      overflow-x:hidden; /* trava rolagem lateral */
+      height:100%; /* base para snap */
+    }
     img{max-width:100%;height:auto;display:block}
-    .page{max-width:980px;margin:0 auto;padding:16px clamp(14px,4vw,18px) 80px}
+
+    /* ===== Scroll-snap de seção (uma dobra por 'rolada') ===== */
+    .snapper{
+      height:100svh; /* ocupa a altura visível */
+      overflow-y:auto;
+      scroll-snap-type:y mandatory;
+      scroll-behavior:smooth;
+    }
+    section.snap{
+      scroll-snap-align:start;
+      scroll-snap-stop:always;
+      min-height:100svh;           /* cada dobra ocupa a tela */
+      display:flex;                 /* centraliza verticalmente o cartão */
+      align-items:stretch;
+      padding:0; margin:0; border:0;
+    }
+
+    /* Conteúdo central em largura máxima elegante */
+    .page{width:100%; display:grid; place-items:center; padding:16px clamp(14px,4vw,18px)}
+    .card{
+      background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+      box-shadow:0 6px 18px rgba(0,0,0,.06); /* LCP mais leve */
+      width: min(980px, 100%); padding:16px; margin:auto;
+    }
+    .stack{display:grid;gap:10px}
+
     h1,h2{letter-spacing:-.02em;margin:0 0 10px}
-    h1{font-size:clamp(24px,5.2vw,38px);line-height:1.12}
-    h2{font-size:clamp(18px,3.8vw,24px);color:var(--green)}
+    h1{font-size:clamp(24px,5.2vw,38px);line-height:1.12;font-weight:900;text-align:center}
+    h2{font-size:clamp(18px,3.8vw,24px);color:var(--green);text-align:center}
     p{margin:8px 0}
     .muted{color:var(--muted)}
     .tiny{font-size:12px;color:var(--muted)}
     .center{text-align:center}
 
-    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
-    .stack{display:grid;gap:12px}
-    .hero{display:grid;gap:12px;margin-top:2px}
-
-    /* Destaques */
+    /* Destaques (condensado em banner único) */
     .banner-strong{
       background:linear-gradient(180deg,#FFF2F3,#fff);
-      border:2px solid #FFD2D6; color:#7c0b17; border-radius:14px; padding:12px 14px; font-weight:800;
-      text-align:center; font-size:clamp(18px,4.8vw,22px);
-    }
-    .banner-secondary{
-      background:#F7FBF8; border:1px solid #DAF0E3; color:#0E3C2E; border-radius:12px; padding:10px 12px;
-      text-align:center; font-weight:700; font-size:clamp(16px,4.2vw,18px);
+      border:2px solid #FFD2D6; color:#7c0b17; border-radius:14px;
+      padding:12px 14px; font-weight:800; text-align:center;
+      font-size:clamp(18px,4.8vw,22px); margin-bottom:2px;
     }
 
     /* Preço — estilo único/homogêneo */
     .price{display:flex;gap:10px;justify-content:center;align-items:center;margin:4px 0}
-    .price .from{opacity:.6;text-decoration:line-through}
-    .price .to{color:var(--green);font-weight:800}
-    .price .badge{font-size:12px;color:#7c0b17;background:#FFF7F8;border:1px solid #FFD2D6;border-radius:999px;padding:4px 8px}
-
-    /* CTA area */
-    .cta{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px}
-    .nowrap{white-space:nowrap}
+    .price .from{opacity:.5;text-decoration:line-through}
+    .price .to{color:var(--green);font-weight:900;font-size:clamp(22px,5.4vw,28px)}
+    .price .badge{font-size:12px;color:#7c0b17;background:#FFF7F8;border:1px solid #FFD2D6;border-radius:999px;padding:4px 8px;font-weight:700}
 
     /* Timer */
     .timer{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:6px;flex-wrap:wrap}
     .pill{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-weight:800}
     .pill.danger{border-color:#FFD2D6;color:#7c0b17;background:#FFF7F8}
 
-    /* Barra “10 por dia / 8 já foram” */
+    /* CTA area */
+    .cta{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px}
+    .nowrap{white-space:nowrap}
+    .btn-primary{
+      cursor:pointer;width:min(360px,100%);height:68px;font-size:20px;
+      color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);
+      border-radius:12px;font-weight:bold;letter-spacing:.2px;
+    }
+    .refuse{
+      display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:min(360px,100%);
+      cursor:pointer;font-size:13px;color:#000;font-style:italic;text-decoration:underline;padding:6px 0;opacity:.85
+    }
+
+    /* Barra “10 por dia / X já foram” */
     .quota{display:grid;gap:8px;margin-top:10px}
     .qbar{position:relative;height:12px;background:#f0f0f0;border:1px solid var(--border);border-radius:999px;overflow:hidden}
-    .qfill{position:absolute;inset:0 0 0 0;transform-origin:left center;background:linear-gradient(90deg,#1D4D3A,#7C1E28)}
+    .qfill{position:absolute;inset:0 auto 0 0;width:0;background:#1D4D3A;transform-origin:left center}
     .qmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+    .qmeta strong{ color:#7C1E28 }
 
-    /* Carrossel depoimentos (sem auto-scroll para não “pular”) */
+    /* Carrossel depoimentos (sem auto-scroll, altura mínima p/ não “pular”) */
     .carousel{display:grid;gap:10px;margin-top:8px}
     .rail{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
     .rail::-webkit-scrollbar{height:8px}
     .rail::-webkit-scrollbar-thumb{background:#ddd;border-radius:999px}
-    .slide{flex:0 0 86%;max-width:86%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .slide{flex:0 0 86%;max-width:86%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06);min-height:120px}
     @media (min-width:760px){ .slide{flex:0 0 48%;max-width:48%} }
 
     /* Funcionários — mesmo formato, com fallback do color-mix */
     .stories{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
     @media (max-width:720px){ .stories{grid-template-columns:repeat(3,1fr)} }
     @media (max-width:420px){ .stories{grid-template-columns:repeat(2,1fr)} }
-    .story{ background:#fff; border:1px solid #E7E7E7; border-radius:14px; padding:12px; text-align:center; box-shadow:var(--shadow) }
-    .story{ border:1px solid color-mix(in oklab, var(--green) 14%, #fff); }
+    .story{ background:#fff; border:1px solid #E7E7E7; border-radius:14px; padding:12px; text-align:center; box-shadow:none }
+    @supports (color-mix(in oklab, #000 10%, #fff)){
+      .story{ border:1px solid color-mix(in oklab, var(--green) 14%, #fff) }
+    }
     .bubble{
       width:min(92px,30vw);height:min(92px,30vw);margin:0 auto 8px; border-radius:50%; overflow:hidden;
       background:linear-gradient(135deg,#eee,#fff);
-      box-shadow:0 0 0 3px var(--wine), 0 0 0 6px var(--green);
+      box-shadow:0 0 0 3px var(--green); /* simplificada (sem anel duplo) */
     }
     .story h5{margin:6px 0 0;font-size:.95rem;color:var(--green)}
     .story small{display:block;color:var(--muted);font-size:.78rem}
@@ -99,219 +134,226 @@
     .bonus-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);border-radius:12px;padding:10px;background:#fff}
     .bonus-emoji{flex:0 0 28px;font-size:20px;line-height:1}
 
-    /* Área de CTAs finais */
     .cta-grid{display:grid;gap:10px;grid-template-columns:1fr}
     @media(min-width:560px){ .cta-grid{grid-template-columns:1fr 1fr} }
 
-    /* Reduzir custos em dispositivos com menos performance */
+    /* Acessibilidade/performance */
     @media (prefers-reduced-motion: reduce){
       .card, .story, .slide{ box-shadow:none; }
+      .snapper{ scroll-behavior:auto; }
     }
 
-    /* Hacks visuais para esconder “Oferta inspirada” caso apareça por script externo */
+    /* Esconde qualquer “Oferta inspirada” injetada por terceiros */
     .inspired-offer, #inspired-offer{display:none !important}
   </style>
 </head>
 <body>
-  <main class="page" role="main" aria-label="Upsell Estúdio Infinito">
 
-    <!-- ===================== DOBRA 1 ===================== -->
-    <section class="card stack" aria-labelledby="h1">
-      <!-- 1) Máximo destaque -->
-      <div class="banner-strong">⚠️ Ainda não finalizou sua compra — não atualize a página.</div>
+  <main class="snapper" role="main" aria-label="Upsell Estúdio Infinito">
 
-      <!-- 2) Segundo maior destaque -->
-      <div class="banner-secondary"><strong>Você está prestes a sair</strong> <span style="text-decoration:underline">sem ativar sua Equipe Não-Humana com 50% de desconto</span>.</div>
+    <!-- ===================== DOBRA 1 (SNAP 1) ===================== -->
+    <section class="snap">
+      <div class="page">
+        <div class="card stack" aria-labelledby="h1">
+          <!-- Banner de urgência (único) -->
+          <div class="banner-strong">⚠️ Ainda não finalizou sua compra — não atualize a página.</div>
 
-      <h1 id="h1" class="center">Ative o Estúdio agora</h1>
-      <!-- Preço homogêneo (padrão único) -->
-      <div class="price" aria-label="Preço">
-        <span class="from">De R$388</span>
-        <span class="to">por R$188</span>
-        <span class="badge">exclusivo desta etapa</span>
-      </div>
+          <h1 id="h1">Ative o Estúdio agora</h1>
 
-      <!-- Timer + frase “58 minutos” -->
-      <div class="timer" aria-live="off" id="timerWrap">
-        <span class="pill">Tempo restante: <span id="countdown">10:00</span></span>
-        <span class="pill danger">Se fechar ou atualizar esta aba, a oferta expira</span>
-      </div>
-      <p class="center muted" style="margin-top:2px">Publique seu primeiro post em 58 minutos usando a Equipe Não-Humana.</p>
+          <!-- Preço homogêneo -->
+          <div class="price" aria-label="Preço">
+            <span class="from">De R$388</span>
+            <span class="to">por R$188</span>
+            <span class="badge">somente nesta aba (10 min)</span>
+          </div>
 
-      <!-- Botões: compra + recusa (largura fluida e seguros) -->
-      <div class="cta">
-        <div class="center-btn-preview">
-          <button
-            data-greenn-one-click="false"
-            data-greenn-upsell="5029"
-            data-greenn-split="1"
-            data-loading="false"
-            onclick="startLoading(this)"
-            type="button"
-            class="btn btn-preview-anime btn-secondary"
-            style="cursor:pointer;width:min(360px,100%);height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
-            <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
-          </button>
-        </div>
+          <!-- Timer + promessa -->
+          <div class="timer" aria-live="off" id="timerWrap">
+            <span class="pill">Tempo restante: <span id="countdown">10:00</span></span>
+            <span class="pill danger">Se fechar ou atualizar esta aba, a oferta expira</span>
+          </div>
+          <p class="center muted" style="margin-top:2px">Publique seu primeiro post em 58 minutos usando a Equipe Não-Humana.</p>
 
-        <div class="center-btn-preview">
-          <a
-            id="not-buy-link"
-            href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
-            target="_blank" rel="noopener noreferrer"
-            class="mt-2 pointer"
-            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:min(360px,100%);cursor:pointer;font-size:11px;color:#000;font-style:italic;text-decoration:underline;">
-            PREFIRO FICAR ATRASADO
-          </a>
-        </div>
-      </div>
+          <!-- CTA principal + recusa (tamanho e contraste ideais) -->
+          <div class="cta">
+            <div>
+              <button
+                data-greenn-one-click="false"
+                data-greenn-upsell="5029"
+                data-greenn-split="1"
+                data-loading="false"
+                onclick="startLoading(this)"
+                type="button"
+                class="btn-primary"
+              >
+                <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
+              </button>
+              <small class="tiny" style="display:block;text-align:center;margin-top:6px">
+                Fechou a aba = perde o preço de R$188.
+              </small>
+            </div>
 
-      <!-- Quota “10 por dia / 8 já foram” (dinâmica) -->
-      <div class="quota" aria-live="polite">
-        <div class="qmeta"><span>Oferta liberada apenas para 10 pessoas por dia</span><span><strong><span id="soldNow">8</span> já foram compradas</strong></span></div>
-        <div class="qbar" aria-label="Progresso de compras do dia" data-total="10" data-sold="8">
-          <div class="qfill" id="qfill"></div>
+            <a
+              id="not-buy-link"
+              href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
+              target="_blank" rel="noopener noreferrer"
+              class="refuse"
+            >
+              PREFIRO FICAR ATRASADO
+            </a>
+          </div>
+
+          <!-- Quota dinâmica -->
+          <div class="quota" aria-live="polite">
+            <div class="qmeta"><span>Oferta liberada apenas para 10 pessoas por dia</span><span><strong><span id="soldNow">8</span> já foram compradas</strong></span></div>
+            <div class="qbar" aria-label="Progresso de compras do dia" data-total="10" data-sold="8">
+              <div class="qfill" id="qfill"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== DOBRA 2 ===================== -->
-    <section class="card stack" style="margin-top:12px" aria-labelledby="h2">
-      <h2 id="h2" class="center">Resultados reais de quem ligou o Estúdio</h2>
+    <!-- ===================== DOBRA 2 (SNAP 2) ===================== -->
+    <section class="snap">
+      <div class="page">
+        <div class="card stack" aria-labelledby="h2">
+          <h2 id="h2">Resultados reais de quem ligou o Estúdio</h2>
 
-      <!-- Carrossel de feedbacks (sem auto-scroll) -->
-      <div class="carousel" aria-label="Feedbacks">
-        <div class="rail" id="proofRail">
-          <article class="slide">
-            <strong>“Postei 7 reels em 30 min.”</strong>
-            <p>Eu achava que IA ia tirar minha voz. Agora multiplica meu alcance. — <em>A.</em></p>
-          </article>
-          <article class="slide">
-            <strong>“Voltei a postar todo dia.”</strong>
-            <p>Eu converso e sai roteiro, legenda e capa — em minutos. — <em>M.</em></p>
-          </article>
-          <article class="slide">
-            <strong>“+1k seguidores numa semana.”</strong>
-            <p>O Estúdio me puxa pra ação. Sem travar. — <em>J.</em></p>
-          </article>
-          <article class="slide">
-            <strong>“Meu conteúdo paga a assinatura.”</strong>
-            <p>Cada post vale +1 dia na renovação. — <em>R.</em></p>
-          </article>
-        </div>
-        <div class="tiny center">Deslize para ver mais depoimentos</div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- 10 Funcionários (mesmo formato da sua página) -->
-      <section aria-labelledby="team">
-        <h2 id="team" class="center">Quem trabalha com você lá dentro</h2>
-        <div class="stories" style="margin-top:8px">
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="1.webp" alt="Leonardo da Viralização" width="92" height="92"></div>
-            <h5>Leonardo da Viralização</h5><small>Nota de viralização</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="2.webp" alt="Bruno do Branding" width="92" height="92"></div>
-            <h5>Bruno do Branding</h5><small>Posicionamento que gruda</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="3.webp" alt="Maria das Ideias" width="92" height="92"></div>
-            <h5>Maria das Ideias</h5><small>Ideias inéditas</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="4.webp" alt="Dudu da Bio" width="92" height="92"></div>
-            <h5>Dudu da Bio</h5><small>Bio que atrai</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="5.webp" alt="Laura das Legendas" width="92" height="92"></div>
-            <h5>Laura das Legendas</h5><small>Texto que prende</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="6.webp" alt="Larissa dos Roteiros" width="92" height="92"></div>
-            <h5>Larissa dos Roteiros</h5><small>Vídeos que retêm</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="7.webp" alt="João dos Ganchos" width="92" height="92"></div>
-            <h5>João dos Ganchos</h5><small>Primeiras frases</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="8.webp" alt="Carlos dos Carrosséis" width="92" height="92"></div>
-            <h5>Carlos dos Carrosséis</h5><small>Slides até o fim</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="9.webp" alt="José dos Stories" width="92" height="92"></div>
-            <h5>José dos Stories</h5><small>Sequências que vendem</small>
-          </article>
-          <article class="story">
-            <div class="bubble"><img loading="lazy" src="10.webp" alt="Bia do Público" width="92" height="92"></div>
-            <h5>Bia do Público</h5><small>Dor e desejo certos</small>
-          </article>
-        </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- Resumo da oferta -->
-      <section aria-labelledby="resumo">
-        <h2 id="resumo" class="center">Resumo do que você recebe agora por R$188</h2>
-        <ul class="check" style="margin-top:6px">
-          <li><strong>Estúdio Infinito</strong> (de R$388 por R$188) — exclusivo nesta página.</li>
-          <li><strong>10 Funcionários Não-Humanos</strong> para ideias, primeiras frases, roteiros, carrosséis, stories, legendas, bio, branding e nota de viralização.</li>
-          <li><strong>Minicursos rápidos</strong> (menos de 30 min) — aprender criando, sem teoria.</li>
-          <li><strong>Garantia do Primeiro Post</strong> — post no ar em até 24h ou devolução 100%.</li>
-        </ul>
-      </section>
-
-      <!-- BÔNUS (8 itens) -->
-      <section aria-labelledby="bonus" style="margin-top:10px">
-        <h2 id="bonus" class="center">Bônus que entram agora</h2>
-        <div class="bonus" style="margin-top:6px">
-          <div class="bonus-item"><div class="bonus-emoji">💛</div><div><strong>Post que Paga</strong><br>Cada post publicado rende +1 dia de acesso na próxima renovação.</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">🏆</div><div><strong>Campeonato Infinito</strong><br>Ranking, pontos e prêmios para acelerar sua consistência.</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">💬</div><div><strong>Comunidade Sobre Humano</strong><br>Feedback prático e chat de ajuda em tempo real.</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">🎨</div><div><strong>Design com ChatGPT</strong><br>Crie seus designs conversando (sem abrir o Canva).</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">🧠</div><div><strong>Gêmea Digital</strong><br>Fotos com IA pelo celular para postar sem aparecer.</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">🎥</div><div><strong>7 Reels em 30 min</strong><br>Fluxo de gravação enxuto para publicar hoje.</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">⚡</div><div><strong>Ressuscite seu perfil</strong><br>Plano de 15 dias para tirar o perfil da UTI.</div></div>
-          <div class="bonus-item"><div class="bonus-emoji">🛠️</div><div><strong>Crie seu Funcionário Não-Humano</strong><br>Clone seu conhecimento em um GPT que trabalha por você.</div></div>
-        </div>
-      </section>
-
-      <!-- CTAs finais -->
-      <div class="cta-grid" style="margin-top:12px">
-        <div class="center">
-          <div class="price" aria-label="Preço" style="opacity:.92">
-            <span class="from">De R$388</span>
-            <span class="to">por R$188</span>
-            <span class="badge">exclusivo desta etapa</span>
+          <!-- Carrossel de feedbacks -->
+          <div class="carousel" aria-label="Feedbacks">
+            <div class="rail" id="proofRail" aria-roledescription="carousel">
+              <article class="slide">
+                <strong>“Postei 7 reels em 30 min.”</strong>
+                <p>Eu achava que IA ia tirar minha voz. Agora multiplica meu alcance. — <em>A.</em></p>
+              </article>
+              <article class="slide">
+                <strong>“Voltei a postar todo dia.”</strong>
+                <p>Eu converso e sai roteiro, legenda e capa — em minutos. — <em>M.</em></p>
+              </article>
+              <article class="slide">
+                <strong>“+1k seguidores numa semana.”</strong>
+                <p>O Estúdio me puxa pra ação. Sem travar. — <em>J.</em></p>
+              </article>
+              <article class="slide">
+                <strong>“Meu conteúdo paga a assinatura.”</strong>
+                <p>Cada post vale +1 dia na renovação. — <em>R.</em></p>
+              </article>
+            </div>
+            <div class="tiny center">Deslize para ver mais depoimentos</div>
           </div>
-          <div class="center-btn-preview">
-            <button
-              data-greenn-one-click="false"
-              data-greenn-upsell="5029"
-              data-greenn-split="1"
-              data-loading="false"
-              onclick="startLoading(this)"
-              type="button"
-              class="btn btn-preview-anime btn-secondary"
-              style="cursor:pointer;width:min(360px,100%);height:68px;font-size:22px;color:#fff;background:rgb(56,87,26);border:2px solid rgb(170,121,66);border-radius:12px;font-weight:bold;letter-spacing:.2px;">
-              <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
-            </button>
-          </div>
-        </div>
 
-        <div class="center" style="display:flex;flex-direction:column;justify-content:center">
-          <a
-            id="not-buy-link-bottom"
-            href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
-            target="_blank" rel="noopener noreferrer"
-            class="mt-2 pointer"
-            style="display:flex;font-family:Montserrat,system-ui,Arial;justify-content:center;width:100%;cursor:pointer;font-size:12px;color:#000;font-style:italic;text-decoration:underline;">
-            PREFIRO FICAR ATRASADO
-          </a>
-          <div class="tiny center" style="margin-top:6px">Se você sair ou atualizar a página, esta condição pode encerrar.</div>
+          <div class="divider"></div>
+
+          <!-- 10 Funcionários -->
+          <section aria-labelledby="team">
+            <h2 id="team">Quem trabalha com você lá dentro</h2>
+            <div class="stories" style="margin-top:8px">
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="1.webp" alt="Leonardo da Viralização" width="92" height="92"></div>
+                <h5>Leonardo da Viralização</h5><small>Nota de viralização</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="2.webp" alt="Bruno do Branding" width="92" height="92"></div>
+                <h5>Bruno do Branding</h5><small>Posicionamento que gruda</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="3.webp" alt="Maria das Ideias" width="92" height="92"></div>
+                <h5>Maria das Ideias</h5><small>Ideias inéditas</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="4.webp" alt="Dudu da Bio" width="92" height="92"></div>
+                <h5>Dudu da Bio</h5><small>Bio que atrai</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="5.webp" alt="Laura das Legendas" width="92" height="92"></div>
+                <h5>Laura das Legendas</h5><small>Texto que prende</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="6.webp" alt="Larissa dos Roteiros" width="92" height="92"></div>
+                <h5>Larissa dos Roteiros</h5><small>Vídeos que retêm</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="7.webp" alt="João dos Ganchos" width="92" height="92"></div>
+                <h5>João dos Ganchos</h5><small>Primeiras frases</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="8.webp" alt="Carlos dos Carrosséis" width="92" height="92"></div>
+                <h5>Carlos dos Carrosséis</h5><small>Slides até o fim</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="9.webp" alt="José dos Stories" width="92" height="92"></div>
+                <h5>José dos Stories</h5><small>Sequências que vendem</small>
+              </article>
+              <article class="story">
+                <div class="bubble"><img loading="lazy" src="10.webp" alt="Bia do Público" width="92" height="92"></div>
+                <h5>Bia do Público</h5><small>Dor e desejo certos</small>
+              </article>
+            </div>
+          </section>
+
+          <div class="divider"></div>
+
+          <!-- Resumo da oferta -->
+          <section aria-labelledby="resumo">
+            <h2 id="resumo">Resumo do que você recebe agora por R$188</h2>
+            <ul class="check" style="margin-top:6px">
+              <li><strong>Estúdio Infinito</strong> (de R$388 por R$188) — exclusivo nesta página.</li>
+              <li><strong>10 Funcionários Não-Humanos</strong> para ideias, primeiras frases, roteiros, carrosséis, stories, legendas, bio, branding e nota de viralização.</li>
+              <li><strong>Minicursos rápidos</strong> (menos de 30 min) — aprender criando, sem teoria.</li>
+              <li><strong>Garantia do Primeiro Post</strong> — post no ar em até 24h ou devolução 100%.</li>
+            </ul>
+          </section>
+
+          <!-- Bônus -->
+          <section aria-labelledby="bonus" style="margin-top:10px">
+            <h2 id="bonus">Bônus que entram agora</h2>
+            <div class="bonus" style="margin-top:6px">
+              <div class="bonus-item"><div class="bonus-emoji">💛</div><div><strong>Post que Paga</strong><br>Cada post publicado rende +1 dia de acesso na próxima renovação.</div></div>
+              <div class="bonus-item"><div class="bonus-emoji">🏆</div><div><strong>Campeonato Infinito</strong><br>Ranking, pontos e prêmios para acelerar sua consistência.</div></div>
+              <div class="bonus-item"><div class="bonus-emoji">💬</div><div><strong>Comunidade Sobre Humano</strong><br>Feedback prático e chat de ajuda em tempo real.</div></div>
+              <div class="bonus-item"><div class="bonus-emoji">🎨</div><div><strong>Design com ChatGPT</strong><br>Crie seus designs conversando (sem abrir o Canva).</div></div>
+              <div class="bonus-item"><div class="bonus-emoji">🧠</div><div><strong>Gêmea Digital</strong><br>Fotos com IA pelo celular para postar sem aparecer.</div></div>
+              <div class="bonus-item"><div class="bonus-emoji">🎥</div><div><strong>7 Reels em 30 min</strong><br>Fluxo de gravação enxuto para publicar hoje.</div></div>
+              <div class="bonus-item"><div class="bonus-emoji">⚡</div><div><strong>Ressuscite seu perfil</strong><br>Plano de 15 dias para tirar o perfil da UTI.</div></div>
+              <div class="bonus-item"><div class="bonus-emoji">🛠️</div><div><strong>Crie seu Funcionário Não-Humano</strong><br>Clone seu conhecimento em um GPT que trabalha por você.</div></div>
+            </div>
+          </section>
+
+          <!-- CTAs finais -->
+          <div class="cta-grid" style="margin-top:12px">
+            <div class="center">
+              <div class="price" aria-label="Preço" style="opacity:.92">
+                <span class="from">De R$388</span>
+                <span class="to">por R$188</span>
+                <span class="badge">somente nesta aba (10 min)</span>
+              </div>
+              <button
+                data-greenn-one-click="false"
+                data-greenn-upsell="5029"
+                data-greenn-split="1"
+                data-loading="false"
+                onclick="startLoading(this)"
+                type="button"
+                class="btn-primary"
+              >
+                <span class="nowrap">ENTRAR NO ESTÚDIO (acesso imediato)</span>
+              </button>
+            </div>
+
+            <div class="center" style="display:flex;flex-direction:column;justify-content:center">
+              <a
+                id="not-buy-link-bottom"
+                href="https://lp.conteudoinfinito.com/obrigado?utm=upsell_declined"
+                target="_blank" rel="noopener noreferrer"
+                class="refuse"
+              >
+                PREFIRO FICAR ATRASADO
+              </a>
+              <div class="tiny center" style="margin-top:6px">Se você sair ou atualizar a página, esta condição pode encerrar.</div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -322,11 +364,12 @@
         <a href="https://payfast.greenn.com.br/SEU-LINK" rel="nofollow">clique aqui</a>.
       </p>
     </noscript>
+
   </main>
 
   <!-- ====== Scripts ====== -->
   <script>
-    /* Oculta qualquer bloco que venha nomeado como “Oferta inspirada” por script externo */
+    /* Esconde qualquer bloco injetado chamado “Oferta inspirada” */
     (function(){
       const kill = (root) => {
         const all = root.querySelectorAll('h1,h2,h3,div,section,span');
@@ -336,7 +379,6 @@
         });
       };
       kill(document);
-      // Se algo for injetado depois:
       const mo = new MutationObserver(()=>kill(document));
       mo.observe(document.body,{childList:true,subtree:true});
     })();
@@ -354,7 +396,7 @@
       if(soldNow) soldNow.textContent = sold;
     })();
 
-    /* Timer regressivo 10:00 (sem aria-live contínuo) + aviso ao sair/atualizar apenas se não aceitou */
+    /* Timer regressivo 10:00 (sem aria-live contínuo) */
     (function(){
       let total = 10*60; // 10 minutos
       const el = document.getElementById('countdown');
@@ -380,12 +422,9 @@
     })();
   </script>
 
-  <!-- ====== Modal/Loader + Greenn (com beforeunload condicionado) ====== -->
+  <!-- ====== Modal/Loader + Script do upsell Greenn (exatamente como enviado) ====== -->
   <script>
-    let accepted = false; // só bloqueia saída se ainda não clicou no CTA
-
     window.startLoading = function(button) {
-      accepted = true; // marcou que a pessoa aceitou/foi pro upsell
       const originalHTML = button.innerHTML;
       button.setAttribute('data-loading', 'true');
       button.innerHTML = ` 
@@ -400,12 +439,6 @@
         button.innerHTML = originalHTML;
       }, 3000);
     };
-
-    // alerta de saída somente se não clicou aceitar
-    window.addEventListener('beforeunload', (e)=>{
-      if (!accepted) { e.preventDefault(); e.returnValue=''; }
-    });
-
     (function (w, d, s, t) { 
       if (w._greennUp) return; 
       w._greennUp = t; 
