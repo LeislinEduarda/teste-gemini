@@ -1283,21 +1283,22 @@ src="https://www.facebook.com/tr?id=1292839838840770&ev=PageView&noscript=1"
     width: 100%;
     height: auto;
     display: block;
-    filter: drop-shadow(0 22px 38px rgba(0, 0, 0, 0.45)) drop-shadow(0 6px 12px rgba(232, 135, 85, 0.18));
+    -webkit-filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45));
+    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45));
   }
 
   .price-card-mockup::before {
     content: "";
     position: absolute;
-    bottom: 8%;
+    bottom: 6%;
     left: 50%;
     transform: translateX(-50%);
-    width: 70%;
-    height: 30%;
-    background: radial-gradient(ellipse at center, rgba(232, 135, 85, 0.22) 0%, transparent 65%);
-    filter: blur(18px);
+    width: 65%;
+    height: 22%;
+    background: radial-gradient(ellipse at center, rgba(232, 135, 85, 0.18) 0%, transparent 70%);
+    filter: blur(14px);
     pointer-events: none;
-    z-index: -1;
+    z-index: 0;
   }
 
   .price-card-reveal {
