@@ -1270,37 +1270,6 @@ src="https://www.facebook.com/tr?id=1292839838840770&ev=PageView&noscript=1"
     font-weight: 700;
   }
 
-  /* ========== MOCKUP IMAGE IN PRICE CARD ========== */
-  .price-card-mockup {
-    width: 100%;
-    max-width: 520px;
-    margin: 10px auto 6px;
-    position: relative;
-    line-height: 0;
-  }
-
-  .price-card-mockup img {
-    width: 100%;
-    height: auto;
-    display: block;
-    -webkit-filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45));
-    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45));
-  }
-
-  .price-card-mockup::before {
-    content: "";
-    position: absolute;
-    bottom: 6%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 65%;
-    height: 22%;
-    background: radial-gradient(ellipse at center, rgba(232, 135, 85, 0.18) 0%, transparent 70%);
-    filter: blur(14px);
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .price-card-reveal {
     line-height: 1;
     margin: 8px 0 8px;
@@ -2143,7 +2112,6 @@ src="https://www.facebook.com/tr?id=1292839838840770&ev=PageView&noscript=1"
 
     .price-card { padding: 36px 22px 32px; gap: 12px; margin: 18px auto 32px; }
     .price-card-product { font-size: 16px; }
-    .price-card-mockup { max-width: 100%; margin: 6px auto 4px; }
     .price-card-reveal .price-currency { font-size: 26px; top: 20px; }
     .price-badge { font-size: 10.5px; padding: 7px 12px; letter-spacing: 0.14em; }
   }
@@ -2582,11 +2550,6 @@ src="https://www.facebook.com/tr?id=1292839838840770&ev=PageView&noscript=1"
 
       <div class="price-card">
         <div class="price-card-product">O <em>meu modelo de reels</em> destrinchado num Notion para você copiar e colar</div>
-
-        <div class="price-card-mockup">
-          <img src="mockup-leislin-2.webp" alt="Modelo de Reels — visualização em celular, iPad e notebook" width="1800" height="1400">
-        </div>
-
         <div class="price-card-reveal">
           <span class="price-currency">R$</span><span class="price-number">47</span>
         </div>
